@@ -1,15 +1,12 @@
-import './App.css';
-import Test from './pages/test/Test';
+import './App.css'
+import SignUp from './pages/sign-up/SignUp'
 
 function App() {
   return (
     <div className="App">
-      <Test />
-      <div className="app">
-        ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-      </div>
+      <SignUp />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
