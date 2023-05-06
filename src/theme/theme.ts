@@ -71,24 +71,24 @@ export const theme = createTheme({
   palette: {
     primary: {
       '100': '#F1E8BD', //disabled
-      '200': '#FAE688', //light
-      '300': '#F8DB52', //main
-      '400': '#F1D138', //dark
+      light: '#FAE688', //light
+      main: '#F8DB52', //main
+      dark: '#F1D138', //dark
     },
     info: {
-      '300': '#5D9EFF', //main
+      main: '#5D9EFF', //main
     },
     success: {
-      '300': '#9EFF5D', //main
+      main: '#9EFF5D', //main
     },
     warning: {
-      '300': '#FF763B', //main
+      main: '#FF763B', //main
     },
     error: {
       '100': '#FFC8CD', //disabled
-      '200': '#F16464', //light
-      '300': '#FF3B3B', //main
-      '400': '#DF0014', //dark
+      light: '#F16464', //light
+      main: '#FF3B3B', //main
+      dark: '#DF0014', //dark
     },
     grey: {
       '100': '#FAFAFA', //1
