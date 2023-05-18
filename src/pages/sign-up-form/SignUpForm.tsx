@@ -1,7 +1,14 @@
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import WestIcon from '@mui/icons-material/West'
-import {ButtonBase, Typography, styled, FormGroup} from '@mui/material'
+import {
+  ButtonBase,
+  Typography,
+  styled,
+  FormGroup,
+  Button,
+  Box,
+} from '@mui/material'
 import {theme} from '@theme/theme'
 import {useEffect, useState} from 'react'
 
@@ -58,6 +65,14 @@ const BackButton = styled(ButtonBase)(() => ({
   '& span': {
     marginLeft: 13,
   },
+}))
+
+const ConsentBox = styled(Box)(({theme}) => ({
+  backgroundColor: theme.palette.grey[600],
+  marginBottom: 30,
+  padding: 4,
+  paddingBottom: 0,
+  borderRadius: 4,
 }))
 
 export default function SignUpForm(props: Props) {
@@ -145,6 +160,8 @@ export default function SignUpForm(props: Props) {
         placeholder="6~16자 / 영문 소문자, 숫자 사용 가능"
       />
 
+      <Button variant="outlined">중복확인</Button>
+
       <FormInput
         label="비밀번호"
         name="password"
@@ -177,22 +194,32 @@ export default function SignUpForm(props: Props) {
         placeholder=""
       />
 
-      <div>
-        <Typography color={theme.palette.grey[300]} variant="body3">
-          약관동의
-        </Typography>
-        <div>
+      <Button variant="outlined">인증필수</Button>
+
+      <Typography color={theme.palette.grey[300]} variant="body3" mt={4}>
+        약관동의
+      </Typography>
+      <ConsentBox>
+        <Box
+          style={{
+            borderBottom: '1px solid',
+            borderColor: theme.palette.grey[500],
+            paddingBottom: 4,
+          }}
+        >
           <RadioTerm
             label="전체동의"
             name="all"
             checked={allConsentChecked}
             onChange={onChangeAllConsentChecked}
+            subText="선택항목에 대한 동의 포함"
           />
-        </div>
+        </Box>
         <ul
           style={{
             padding: 0,
             margin: 0,
+            marginTop: 8,
           }}
         >
           <li>
@@ -239,7 +266,16 @@ export default function SignUpForm(props: Props) {
             />
           </li>
         </ul>
-      </div>
+      </ConsentBox>
+      <Button
+        variant="contained"
+        size="large"
+        style={{
+          width: '100%',
+        }}
+      >
+        회원가입하기
+      </Button>
     </SignUpFormContainer>
   )
 }

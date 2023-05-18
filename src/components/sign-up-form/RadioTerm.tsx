@@ -54,18 +54,20 @@ export default function RadioTerm(props: Props) {
           </label>
         </CheckBoxContainer>
         {subText && (
-          <Typography variant="body3" color={theme.palette.grey[400]}>
+          <Typography variant="body5" color={theme.palette.grey[400]}>
             {subText}
           </Typography>
         )}
         {required ? (
-          <Typography variant="body4" color={theme.palette.primary.main}>
+          <Typography variant="body5" color={theme.palette.primary.main}>
             (*필수)
           </Typography>
         ) : (
-          <Typography variant="body4" color={theme.palette.grey[500]}>
-            (선택)
-          </Typography>
+          !subText && (
+            <Typography variant="body5" color={theme.palette.grey[500]}>
+              (선택)
+            </Typography>
+          )
         )}
       </Box>
       {/*       
