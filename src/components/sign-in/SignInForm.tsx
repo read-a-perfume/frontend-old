@@ -39,6 +39,9 @@ export const SignInForm = () => {
   const onChangeId = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
   },[])
+  const onChangePw = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value)
+  },[])
   return (
     <SignInDialogContent>
       <DialogGridContainer container spacing={1}>
@@ -58,7 +61,7 @@ export const SignInForm = () => {
           <TabItem value={value} index={0}>
             <Box sx={{py: 1}}>
               <SignInTextField onChange={onChangeId} variant="outlined"label={<TextFieldLabel>아이디</TextFieldLabel> } size='small'/>
-              <SignInTextField variant="outlined" label={<TextFieldLabel>패스워드</TextFieldLabel>} size='small' type="password"/>
+              <SignInTextField onChange={onChangePw} variant="outlined" label={<TextFieldLabel>패스워드</TextFieldLabel>} size='small' type="password"/>
               <LoginButton variant='contained' customColor='#F8DB52'>로그인</LoginButton>
               <LoginButton variant='outlined' customColor='white' sx={{mt:1}}>Google 로그인</LoginButton>
             </Box>
