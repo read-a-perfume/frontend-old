@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import CustomIcons from 'src/assets/icons/customIcons';
 import Categories from '../Category/Categories';
 import {
   BgItem,
@@ -12,6 +13,7 @@ import {
   Nav,
   NavItem,
   RightNav,
+  SearchIcon,
   Section,
   TopSectionSubTitle,
   TopSectionTitle,
@@ -40,6 +42,7 @@ function Header() {
           <NavItem onClick={() => navigate('/sign-up')}>
             회원가입
           </NavItem>
+          <SearchIcon />
         </RightNav>
       </Nav>
       <Headers>

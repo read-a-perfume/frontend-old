@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
 import {Typography} from '@mui/material'
 import {theme} from '@theme/theme'
-import { NavProps } from './Headers.interface'
+import CustomIcons from 'src/assets/icons/customIcons'
+import {NavProps} from './Headers.interface'
 
 export const Nav = styled.div({
   width: '100%',
@@ -27,17 +28,19 @@ export const NavItem = styled(Typography)<NavProps>(({clicked}) => ({
   textUnderlineOffset: '7px',
   color: 'white',
   marginRight: '32px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 }))
 
 export const LeftNav = styled.div({
   marginLeft: '67px',
   display: 'flex',
+  alignItems: 'center',
 })
 
 export const RightNav = styled.div({
   marginRight: '400.57px',
-  display: 'flex'
+  display: 'flex',
+  alignItems: 'center',
 })
 
 export const Section = styled.div({
@@ -120,4 +123,9 @@ export const CategorySpan = styled(Typography)({
 export const CategoryImage = styled.img({
   width: '64px',
   height: '64px',
+})
+
+export const SearchIcon = styled(CustomIcons.SearchIcon)({
+  marginTop: '4px',
+  cursor: 'pointer',
 })
