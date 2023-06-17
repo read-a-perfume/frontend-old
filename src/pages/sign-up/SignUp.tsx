@@ -1,6 +1,5 @@
-import UserTypeSelect from '@components/user-type-select-box/UserTypeSelect'
 import {Box, styled} from '@mui/material'
-import SignUpForm from '@pages/sign-up-form/SignUpForm'
+import SignUpForm from '@components/sign-up-form/SignUpForm'
 import {useState} from 'react'
 
 export type SignUpType = 'personal' | 'enterprise' | ''
@@ -13,7 +12,6 @@ export default function SignUp() {
   }
 
   const Container = styled(Box)(() => ({
-    backgroundColor: 'black',
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',

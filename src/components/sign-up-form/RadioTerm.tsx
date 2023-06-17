@@ -45,7 +45,6 @@ export default function RadioTerm(props: Props) {
           <label
             htmlFor={name}
             style={{
-              color: theme.palette.grey[300],
               fontSize: theme.typography.body3.fontSize,
               cursor: 'pointer',
             }}
@@ -59,7 +58,7 @@ export default function RadioTerm(props: Props) {
           </Typography>
         )}
         {required ? (
-          <Typography variant="body5" color={theme.palette.primary.main}>
+          <Typography variant="body5" color={theme.palette.secondary.main}>
             (*필수)
           </Typography>
         ) : (
