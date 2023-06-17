@@ -1,0 +1,1 @@
+export const cardData: string[] = ['Chrome Azzaro', '미우미우', 'CHANEL', 'Dior']
