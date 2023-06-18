@@ -144,7 +144,7 @@ export const Divider = styled.hr({
 export const DividerText = styled(Typography)({
   position: 'relative',
   zIndex: 2,
-  marginTop: '-25px',
+  marginTop: '-9px',
   background: 'white',
   width: '63px',
   textAlign: 'center',

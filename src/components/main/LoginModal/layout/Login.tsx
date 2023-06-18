@@ -27,8 +27,8 @@ function LoginLayout({setCondition}: LoginLayoutProps) {
         setInputs={setInputs}
         setErrors={setErrors}
       />
-      <FlexBox justifyContent="space-between" style={{marginTop: '8px'}}>
-        <FlexBox>
+      <FlexBox justifyContent="space-between">
+        <FlexBox style={{ marginTop: '4px'}}>
           {checked ? (
             <Checked onClick={() => setChecked(!checked)} />
           ) : (
