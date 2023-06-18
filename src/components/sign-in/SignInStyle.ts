@@ -1,13 +1,9 @@
-import { BorderColor, Label } from '@mui/icons-material'
 import {
   Box,
   Button,
   Dialog,
   DialogContent,
-  FormGroup,
   Grid,
-  makeStyles,
-  Paper,
   styled,
   TextField,
   Typography,
@@ -17,7 +13,7 @@ interface LoginButtonProps {
   customColor: '#F8DB52' | 'white'
 }
 
-export const SignInDialog = styled(Dialog)(({theme}) => ({
+export const SignInDialog = styled(Dialog)(() => ({
   maxWidth: 420,
   margin: '0 auto',
 }))
