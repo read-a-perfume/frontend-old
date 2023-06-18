@@ -41,3 +41,12 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           source: build/
           target: /var/www/html
+
+      - name: Notify Slack
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DEV_DEPLOY_SLACK_WEBHOOK_URL }}
