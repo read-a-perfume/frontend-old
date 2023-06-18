@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import {Box, Button, Modal, TextField, Typography} from '@mui/material'
 import {theme} from '@theme/theme'
-import CustomIcons from 'src/assets/icons/customIcons'
 import {FcGoogle} from 'react-icons/fc'
+import CustomIcons from 'src/assets/customIcons'
 
 export const ModalInputStyle = {
   outline: 'none',
