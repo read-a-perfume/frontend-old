@@ -20,8 +20,6 @@ import {
   LoginButton,
 } from './SignInStyle'
 import {ChangeEventHandler, SyntheticEvent, useCallback, useState} from 'react'
-import axios from 'axios'
-import {BASE_URL} from '@api/Apiconfig'
 
 interface TabItemProps {
   children?: React.ReactNode
@@ -30,7 +28,7 @@ interface TabItemProps {
 }
 
 function TabItem(props: TabItemProps) {
-  const {children, value, index, ...other} = props
+  const {children, value, index} = props
 
   return (
     <Box sx={{width: '100%'}} hidden={value !== index}>
@@ -41,9 +39,8 @@ function TabItem(props: TabItemProps) {
 }
 
 export const SignInForm = () => {
-  const [value, setValue] = useState<number>(0)
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [value, setValue] = useState(0)
+  const [email, setEmail] = useState('')
   const handleChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
       setValue(newValue)
@@ -52,27 +49,16 @@ export const SignInForm = () => {
   )
   const onChangeId = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setUsername(event.target.value)
+      setEmail(event.target.value)
     },
     [],
   )
   const onChangePw = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(event.target.value)
+      setEmail(event.target.value)
     },
     [],
   )
-
-  const onLogin = async () => {
-    try {
-      const {data} = await axios.post(BASE_URL + '/api/v1/login', {
-        username: username,
-        password: value,
-      })
-    } catch (err) {
-      console.error(err)
-    }
-  }
   return (
     <SignInDialogContent>
       <DialogGridContainer container spacing={1}>

@@ -25,6 +25,7 @@ module.exports = {
     ],
     'react/react-in-jsx-scope': 'off',
     'import/no-unresolved': 'off',
+    "@typescript-eslint/no-explicit-any": "off"
   },
   settings: {
     'import/resolver': {
