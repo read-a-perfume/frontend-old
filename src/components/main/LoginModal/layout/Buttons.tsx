@@ -24,7 +24,7 @@ const Buttons = ({tabClick, errors}: ButtonsProps) => {
       </LoginButton>
       {tabClick !== 'company' && (
         <>
-          <div>
+          <div style={{ marginTop: '35px'}}>
             <Divider />
             <FlexBox
               justifyContent="center"

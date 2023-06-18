@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import {Box, Button, Modal, TextField, Typography} from '@mui/material'
 import {theme} from '@theme/theme'
-import CustomIcons from 'src/assets/icons/customIcons'
 import {FcGoogle} from 'react-icons/fc'
+import CustomIcons from 'src/assets/customIcons'
 
 export const ModalInputStyle = {
   outline: 'none',
@@ -144,7 +144,7 @@ export const Divider = styled.hr({
 export const DividerText = styled(Typography)({
   position: 'relative',
   zIndex: 2,
-  marginTop: '-25px',
+  marginTop: '-10px',
   background: 'white',
   width: '63px',
   textAlign: 'center',
