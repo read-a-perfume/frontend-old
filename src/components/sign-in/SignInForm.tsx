@@ -20,6 +20,7 @@ import {
   LoginButton,
 } from './SignInStyle'
 import {ChangeEventHandler, SyntheticEvent, useCallback, useState} from 'react'
+import axios from 'axios'
 
 interface TabItemProps {
   children?: React.ReactNode
@@ -32,7 +33,6 @@ function TabItem(props: TabItemProps) {
 
   return (
     <Box sx={{width: '100%'}} hidden={value !== index}>
-      {}
       {value === index && <Typography>{children}</Typography>}
     </Box>
   )
@@ -40,7 +40,8 @@ function TabItem(props: TabItemProps) {
 
 export const SignInForm = () => {
   const [value, setValue] = useState(0)
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const handleChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
       setValue(newValue)
@@ -49,16 +50,24 @@ export const SignInForm = () => {
   )
   const onChangeId = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value)
+      setUsername(event.target.value)
     },
     [],
   )
   const onChangePw = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value)
+      setPassword(event.target.value)
     },
     [],
   )
+
+  const onLogin = async () => {
+    try {
+      axios.post('/api/v1/login', {username, password})
+    } catch (err) {
+      console.error(err)
+    }
+  }
   return (
     <SignInDialogContent>
       <DialogGridContainer container spacing={1}>
