@@ -1,10 +1,6 @@
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import {
   Box,
-  ButtonBase,
   Checkbox,
-  FormControlLabel,
-  FormLabel,
   Typography,
   styled,
 } from '@mui/material'

@@ -1,3 +1,4 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import {JSXElementConstructor, Key, ReactElement} from 'react'
 import {Route} from 'react-router-dom'
 

@@ -1,12 +1,13 @@
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 import {SignInForm} from './SignInForm'
-import {SignInDialog, SignInDialogContent} from './SignInStyle'
+import {SignInDialog} from './SignInStyle'
 
 type SignIn = {
   isDialog: boolean
   changeSignInDialog: any
 }
 
-export const SignIn = ({...props}: SignIn) => {
+const SignIn = ({...props}: SignIn) => {
   return (
     <SignInDialog
       open={props.isDialog}
@@ -17,3 +18,5 @@ export const SignIn = ({...props}: SignIn) => {
     </SignInDialog>
   )
 }
+
+export default SignIn;

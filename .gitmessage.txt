@@ -41,3 +41,12 @@
 #   Can use multiple lines with "-" for bullet points in body
 #     본문에 여러줄의 메시지(목록)를 작성할 땐 "-"로 구분
 # ------------------
+
+# --- Git flow ---
+# main: 마지막 브랜치 (주로 배포 버전)
+# develop : 현재 개발 브랜치
+# feature : 새로운 기능 개발 브랜치 (예: feature/sign-up)
+# hotfix : main 브랜치에서 발생한 버그 수정하는 브랜치
+#
+# * feature 브랜치 생성 시 브랜치 소스는 develop으로 할 것
+# * feature 브린채 작업 완료 -> pr -> develop 브랜치로 merge

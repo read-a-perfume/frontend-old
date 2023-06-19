@@ -1,4 +1,4 @@
-import {Box, Button, Dialog, Grid, Tab, Tabs, TextField, Typography} from '@mui/material'
+import {Box, Tab, Tabs, Typography} from '@mui/material'
 import {
   DialogGridContainer,
   DialogGrid,
@@ -10,7 +10,7 @@ import {
   TextFieldLabel,
   LoginButton,
 } from './SignInStyle'
-import { ChangeEventHandler, SyntheticEvent, useCallback, useState } from 'react'
+import { SyntheticEvent, useCallback, useState } from 'react'
 
 interface TabItemProps {
   children?: React.ReactNode
@@ -19,7 +19,7 @@ interface TabItemProps {
 }
 
 function TabItem(props: TabItemProps) {
-  const {children, value, index, ...other} = props
+  const {children, value, index} = props
 
   return (
     <Box sx={{width:'100%'}} hidden={value !== index}>{}
@@ -33,6 +33,7 @@ function TabItem(props: TabItemProps) {
 export const SignInForm = () => {
   const [value, setValue] = useState(0);
   const [email, setEmail] = useState('');
+  console.log(email)
   const handleChange = useCallback((event: SyntheticEvent, newValue: number) => {
     setValue(newValue)
   },[]);
