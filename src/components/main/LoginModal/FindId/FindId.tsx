@@ -1,12 +1,20 @@
 import FlexBox from '@components/layout/FlexBox'
-import { FormControl, TextField, Typography } from '@mui/material'
-import { theme } from '@theme/theme'
+import Links from '@components/layout/Links'
+import {FormControl, TextField, Typography} from '@mui/material'
+import {theme} from '@theme/theme'
+import {useState} from 'react'
 import CustomIcons from 'src/assets/customIcons'
-import { ConfirmButton, FindLayout, FindSpan, Label } from '../FindPassword/FindPassword.style'
-import {LoginLayoutProps} from '../LoginModal.interface'
-import { inputStyle } from '../LoginModal.style'
+import {
+  ConfirmButton,
+  FindLayout,
+  Label,
+} from '../FindPassword/FindPassword.style'
+import {LoginLayoutProps} from '../layout/LoginModal.interface'
+import {inputStyle} from '../layout/LoginModal.style'
 
 const FindId = ({setCondition}: LoginLayoutProps) => {
+  const [email, setEmail] = useState<string>('')
+
   return (
     <FindLayout>
       <FlexBox
@@ -14,7 +22,7 @@ const FindId = ({setCondition}: LoginLayoutProps) => {
         style={{cursor: 'pointer'}}
         alignItems="center"
       >
-        <CustomIcons.ArrowLeftIcon style={{ marginBottom: '-16px'}} />
+        <CustomIcons.ArrowLeftIcon style={{marginBottom: '-16px'}} />
         <Typography
           fontSize={theme.typography.body2.fontSize}
           color={theme.palette.grey[800]}
@@ -38,18 +46,26 @@ const FindId = ({setCondition}: LoginLayoutProps) => {
           placeholder="이메일을 입력해주세요."
           name="email"
           sx={inputStyle}
+          value={email}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(event?.target.value)
+          }
         />
-        <ConfirmButton type="submit" fullWidth onClick={() => setCondition('id_result')}>
+        <ConfirmButton
+          type="submit"
+          fullWidth
+          onClick={() => setCondition('id_result')}
+          disabled={email === ''}
+        >
           확인
         </ConfirmButton>
       </FormControl>
-      <FlexBox justifyContent="center" style={{marginTop: '27px'}}>
-        <FindSpan>비밀번호가 기억나지 않는다면?&nbsp;</FindSpan>
-        <FindSpan color="blue" onClick={() => setCondition('password')}>
-          {' '}
-          비밀번호 찾기
-        </FindSpan>
-      </FlexBox>
+      <Links
+        label="비밀번호가 기억나지 않는다면?"
+        linkLabel="비밀번호 찾기"
+        onClick={() => setCondition('password')}
+        style={{marginTop: '27px'}}
+      />
     </FindLayout>
   )
 }

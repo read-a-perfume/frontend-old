@@ -1,9 +1,8 @@
-import SignIn from '@components/sign-in/SignIn'
-import {Button} from '@mui/material'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {SignIn} from '@components/sign-in/SignIn'
 import LoginModal from '@components/main/LoginModal/LoginModal'
+import SignIn from '@components/sign-in/SignIn'
+import { Button } from '@mui/material'
 
 export default function Main() {
   const [isSignInDialog, setIsSignInDialog] = useState(false)

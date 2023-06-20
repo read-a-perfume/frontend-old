@@ -33,9 +33,11 @@ export const inputStyle = {
 
 export const ModalStyle = styled(Modal)({
   width: '458px',
-  height: '683px',
+  // minHeight: '683px',
+  // maxHeight: '750px',
   top: '213px',
   left: '35%',
+  bottom: '9%'
 })
 
 export const ModalLayout = styled(Box)({

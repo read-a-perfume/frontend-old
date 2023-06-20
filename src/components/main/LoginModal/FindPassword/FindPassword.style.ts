@@ -2,16 +2,18 @@ import styled from '@emotion/styled'
 import {Button, Typography} from '@mui/material'
 import {theme} from '@theme/theme'
 
-export const ConfirmButton = styled(Button)({
-  height: '54px',
-  background: theme.palette.primary.main,
-  borderRadius: '4px',
-  color: theme.palette.grey[800],
-  fontSize: theme.typography.body2.fontSize,
-  '&:hover': {
-    background: theme.palette.primary.main,
-  },
-})
+export const ConfirmButton = styled(Button)(
+  ({disabled}: {disabled?: boolean}) => ({
+    height: '54px',
+    background: disabled ? theme.palette.grey[300] : theme.palette.primary.main,
+    borderRadius: '4px',
+    color: disabled ? theme.palette.grey[500] : theme.palette.grey[800],
+    fontSize: theme.typography.body2.fontSize,
+    '&:hover': {
+      background: theme.palette.primary.main,
+    },
+  }),
+)
 
 export const FindSpan = styled(Typography)(({color}: {color?: string}) => ({
   fontSize: theme.typography.body4.fontSize,
@@ -45,5 +47,5 @@ export const SendEmailSpan = styled(Typography)(
 )
 
 export const SendEmailContainer = styled.div({
-  marginTop: '83px'
+  marginTop: '83px',
 })

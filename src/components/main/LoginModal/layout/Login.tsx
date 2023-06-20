@@ -1,60 +1,35 @@
-import FlexBox from '@components/layout/FlexBox'
-import {Typography} from '@mui/material'
-import {theme} from '@theme/theme'
 import {useState} from 'react'
-import {LoginLayoutProps, UserInfo} from '../LoginModal.interface'
-import {
-  Checked,
-  ErrorText,
-  FindId,
-  FindPassword,
-  NotChecked,
-} from '../LoginModal.style'
+// import {useNavigate} from 'react-router-dom'
+import {LoginConditionProps, UserInfo} from './LoginModal.interface'
+import {ErrorText} from './LoginModal.style'
+import Additionals from './Additionals'
 import Buttons from './Buttons'
-import LoginModalInputs from './LoginModalInputs'
+import Inputs from './Inputs'
 import LoginModalTitle from './LoginModalTitle'
 
-function LoginLayout({setCondition}: LoginLayoutProps) {
-  const [checked, setChecked] = useState<boolean>(false)
+function LoginLayout({
+  condition,
+  setCondition,
+  setIsOpen,
+}: LoginConditionProps) {
+  // const navigate = useNavigate()
   const [inputs, setInputs] = useState<UserInfo>({id: '', password: ''})
   const [errors, setErrors] = useState<string>('')
   const [tabClick, setTabClick] = useState<string>('personal')
+
   return (
     <>
-      <LoginModalTitle setTabClick={setTabClick} tabClick={tabClick} />
-      <LoginModalInputs
+      <LoginModalTitle setTabClick={setTabClick} tabClick={tabClick} setInputs={setInputs} />
+      <Inputs setErrors={setErrors} setInputs={setInputs} inputs={inputs} />
+      <Additionals setCondition={setCondition} />
+      {errors && <ErrorText>{errors}</ErrorText>}
+      <Buttons
+        errors={errors}
+        tabClick={tabClick}
+        condition={condition}
         inputs={inputs}
-        setInputs={setInputs}
-        setErrors={setErrors}
+        setIsOpen={setIsOpen}
       />
-      <FlexBox justifyContent="space-between">
-        <FlexBox style={{ marginTop: '4px'}}>
-          {checked ? (
-            <Checked onClick={() => setChecked(!checked)} />
-          ) : (
-            <NotChecked onClick={() => setChecked(!checked)} />
-          )}
-          <Typography
-            fontSize={theme.typography.body4.fontSize}
-            fontWeight="500"
-            color={theme.palette.grey[500]}
-          >
-            로그인 상태 유지
-          </Typography>
-        </FlexBox>
-        <FlexBox alignItems="center">
-          <FindPassword onClick={() => setCondition('password')}>
-            비밀번호 찾기
-          </FindPassword>
-          <FindId onClick={() => setCondition('id')}>아이디 찾기</FindId>
-        </FlexBox>
-      </FlexBox>
-      {errors && (
-        <ErrorText>
-          {errors}
-        </ErrorText>
-      )}
-      <Buttons errors={errors} tabClick={tabClick} />
     </>
   )
 }

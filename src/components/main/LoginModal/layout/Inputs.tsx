@@ -1,15 +1,15 @@
-import {InputProps} from '../LoginModal.interface'
-import {ModalInputs, ModalInputStyle} from '../LoginModal.style'
+import {InputProps} from './LoginModal.interface'
+import {ModalInputs, ModalInputStyle} from './LoginModal.style'
 
-function LoginModalInputs({inputs, setInputs, setErrors}: InputProps) {
+const Inputs = ({setInputs, setErrors, inputs}: InputProps) => {
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target
     setInputs({...inputs, [name]: value})
-    setErrors('test')
+    setErrors('')
   }
 
   return (
-    <div>
+    <>
       <ModalInputs
         required
         fullWidth
@@ -17,19 +17,22 @@ function LoginModalInputs({inputs, setInputs, setErrors}: InputProps) {
         placeholder="아이디"
         name="id"
         sx={ModalInputStyle}
+        value={inputs.id}
         onChange={changeHandler}
       />
       <ModalInputs
         required
         fullWidth
+        type="password"
         size="small"
         placeholder="비밀번호"
         name="password"
         sx={ModalInputStyle}
+        value={inputs.password}
         onChange={changeHandler}
       />
-    </div>
+    </>
   )
 }
 
-export default LoginModalInputs
+export default Inputs
