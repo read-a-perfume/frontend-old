@@ -11,6 +11,7 @@ import {
   Typography,
   styled,
 } from '@mui/material'
+import {useMutation} from '@tanstack/react-query'
 import {theme} from '@theme/theme'
 import axios from 'axios'
 import {useEffect, useState} from 'react'
@@ -21,6 +22,7 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
+import {CheckEmail} from '@api/sign-up/route'
 
 interface SignUpInputs {
   id: string
@@ -70,8 +72,7 @@ const CheckButton = styled(Button)(() => ({
 }))
 
 export default function SignUpForm(props: Props) {
-  const {type} = props
-  const [userId, setUserId] = useState<string>('')
+  // const {type} = props
   const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
@@ -173,21 +174,32 @@ export default function SignUpForm(props: Props) {
     }
   }
 
-  const onClickEmailCheck = async () => {
-    try {
-      setEmailAuthReady(true)
-      setEmailSendAlertOpen(true)
-      const {data} = await axios.post(
-        BASE_URL + '/api/v1/signup/email-verify/request',
-        {email: signUpInputs.email},
-      )
+  // const onClickEmailCheck = async () => {
+  //   try {
+  //     setEmailAuthReady(true)
+  //     setEmailSendAlertOpen(true)
+  //     const {data} = await axios.post(
+  //       BASE_URL + '/api/v1/signup/email-verify/request',
+  //       {email: signUpInputs.email},
+  //     )
 
-      console.log(data)
-    } catch (e) {
-      console.error(e)
-    }
-  }
+  //     console.log(data)
+  //   } catch (e) {
+  //     console.error(e)
+  //   }
+  // }
 
+  const mutation = useMutation({
+    mutationFn: () =>
+      axios.post(BASE_URL + '/api/v1/signup/email-verify/request', {
+        email: signUpInputs.email,
+      }),
+    onSuccess: () => {
+      console.log('asdsadsadsa')
+    },
+  })
+
+  const onClickEmailCheck = () => CheckEmail.mutate('asdasd')
   const onClickSubmitBtn = async () => {
     try {
       const {id, password, email} = signUpInputs
@@ -205,6 +217,14 @@ export default function SignUpForm(props: Props) {
       console.error(e)
     }
   }
+  // const onClickSubmitBtn = async () =>
+  //   signUpQuery.mutate({
+  //     id: signUpInputs.id,
+  //     password: signUpInputs.password,
+  //     email: signUpInputs.email,
+  //     marketingConsent: optionalConsent.marketingConsent,
+  //     promotionConsent: optionalConsent.promotionConsent,
+  //   })
 
   const closeEmailSendAlert = () => {
     setEmailSendAlertOpen(false)
