@@ -1,4 +1,5 @@
 import {BASE_URL} from '@api/Apiconfig'
+import {CheckEmail, CheckId} from '@api/sign-up/action'
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import WestIcon from '@mui/icons-material/West'
@@ -22,7 +23,6 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
-import {CheckEmail} from '@api/sign-up/route'
 
 interface SignUpInputs {
   id: string
@@ -154,52 +154,28 @@ export default function SignUpForm(props: Props) {
     return true
   }
 
-  const validationEmail = () => {
-    const {email} = signUpInputs
-    const emailRex = /[\w]/g
+  const checkIdQuery = useMutation({
+    mutationFn: CheckId,
+    onSuccess: () => {
+      setCheckId(true)
+    },
+  })
+  const onClickIdCheck = () => {
+    checkIdQuery.mutate(signUpInputs.id)
   }
 
-  const onClickIdCheck = async () => {
-    try {
-      if (validationId()) {
-        await axios.post(BASE_URL + '/api/v1/signup/check-username', {
-          username: signUpInputs.id,
-        })
-
-        setCheckId(true)
-      }
-    } catch (e) {
-      alert('실패')
-      console.error(e)
-    }
-  }
-
-  // const onClickEmailCheck = async () => {
-  //   try {
-  //     setEmailAuthReady(true)
-  //     setEmailSendAlertOpen(true)
-  //     const {data} = await axios.post(
-  //       BASE_URL + '/api/v1/signup/email-verify/request',
-  //       {email: signUpInputs.email},
-  //     )
-
-  //     console.log(data)
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // }
-
-  const mutation = useMutation({
-    mutationFn: () =>
-      axios.post(BASE_URL + '/api/v1/signup/email-verify/request', {
-        email: signUpInputs.email,
-      }),
+  const checkEmail = useMutation({
+    mutationFn: CheckEmail,
     onSuccess: () => {
       console.log('asdsadsadsa')
+      setEmailAuthReady(true)
+      setEmailSendAlertOpen(true)
     },
   })
 
-  const onClickEmailCheck = () => CheckEmail.mutate('asdasd')
+  const onClickEmailCheck = () => {
+    checkEmail.mutate(signUpInputs.email)
+  }
   const onClickSubmitBtn = async () => {
     try {
       const {id, password, email} = signUpInputs
