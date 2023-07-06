@@ -72,7 +72,10 @@ const CheckButton = styled(Button)(() => ({
 }))
 
 export default function SignUpForm(props: Props) {
+  props: Props
+) {
   // const {type} = props
+  // const [userId, setUserId] = useState<string>('')
   const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
@@ -81,9 +84,14 @@ export default function SignUpForm(props: Props) {
   const [optionalConsent, setOptionalConsent] = useState(initOptionalConsent)
   const [checkId, setCheckId] = useState<boolean>()
   const [emailAuthReady, setEmailAuthReady] = useState<boolean>(false)
-  const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // setStateAction이 없어 에러가 발생하였습니다. 위 코드는 사용하실 것 같아 그대로 두고 임시 코드를 만들었습니다.
+  // 위 코드 사용 시 아래 코드는 지우고 사용하시기 바랍니다.
+  const checkAuthNum = false;
   const [emailSendAlertOpen, setEmailSendAlertOpen] = useState<boolean>(false)
   const [authCode, setAuthCode] = useState<string>('')
+
+  console.log(props)   // 이 코드는 에러를 지우기 위해 임시로 만들어둔 코드입니다. 코드 수정 시 제거하고 사용하시기 바랍니다.
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev)
   const onToggleShowPasswordCheck = () => setShowPasswordCheck(prev => !prev)
@@ -163,6 +171,10 @@ export default function SignUpForm(props: Props) {
   const onClickIdCheck = () => {
     checkIdQuery.mutate(signUpInputs.id)
   }
+  // const validationEmail = () => {
+  //   const {email} = signUpInputs
+  //   const emailRex = /[\w]/g
+  // }
 
   const checkEmail = useMutation({
     mutationFn: CheckEmail,
