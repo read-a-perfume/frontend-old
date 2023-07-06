@@ -1,4 +1,5 @@
 import {BASE_URL} from '@api/Apiconfig'
+import {CheckEmail, CheckId} from '@api/sign-up/action'
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import WestIcon from '@mui/icons-material/West'
@@ -11,6 +12,7 @@ import {
   Typography,
   styled,
 } from '@mui/material'
+import {useMutation} from '@tanstack/react-query'
 import {theme} from '@theme/theme'
 import axios from 'axios'
 import {useEffect, useState} from 'react'
@@ -69,7 +71,7 @@ const CheckButton = styled(Button)(() => ({
   marginTop: 36,
 }))
 
-export default function SignUpForm(
+export default function SignUpForm(props: Props) {
   props: Props
 ) {
   // const {type} = props
@@ -160,41 +162,32 @@ export default function SignUpForm(
     return true
   }
 
+  const checkIdQuery = useMutation({
+    mutationFn: CheckId,
+    onSuccess: () => {
+      setCheckId(true)
+    },
+  })
+  const onClickIdCheck = () => {
+    checkIdQuery.mutate(signUpInputs.id)
+  }
   // const validationEmail = () => {
   //   const {email} = signUpInputs
   //   const emailRex = /[\w]/g
   // }
 
-  const onClickIdCheck = async () => {
-    try {
-      if (validationId()) {
-        await axios.post(BASE_URL + '/api/v1/signup/check-username', {
-          username: signUpInputs.id,
-        })
-
-        setCheckId(true)
-      }
-    } catch (e) {
-      alert('실패')
-      console.error(e)
-    }
-  }
-
-  const onClickEmailCheck = async () => {
-    try {
+  const checkEmail = useMutation({
+    mutationFn: CheckEmail,
+    onSuccess: () => {
+      console.log('asdsadsadsa')
       setEmailAuthReady(true)
       setEmailSendAlertOpen(true)
-      const {data} = await axios.post(
-        BASE_URL + '/api/v1/signup/email-verify/request',
-        {email: signUpInputs.email},
-      )
+    },
+  })
 
-      console.log(data)
-    } catch (e) {
-      console.error(e)
-    }
+  const onClickEmailCheck = () => {
+    checkEmail.mutate(signUpInputs.email)
   }
-
   const onClickSubmitBtn = async () => {
     try {
       const {id, password, email} = signUpInputs
@@ -212,6 +205,14 @@ export default function SignUpForm(
       console.error(e)
     }
   }
+  // const onClickSubmitBtn = async () =>
+  //   signUpQuery.mutate({
+  //     id: signUpInputs.id,
+  //     password: signUpInputs.password,
+  //     email: signUpInputs.email,
+  //     marketingConsent: optionalConsent.marketingConsent,
+  //     promotionConsent: optionalConsent.promotionConsent,
+  //   })
 
   const closeEmailSendAlert = () => {
     setEmailSendAlertOpen(false)

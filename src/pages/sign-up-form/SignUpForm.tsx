@@ -3,12 +3,12 @@ import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import WestIcon from '@mui/icons-material/West'
 import {
+  Box,
+  Button,
   ButtonBase,
+  FormGroup,
   Typography,
   styled,
-  FormGroup,
-  Button,
-  Box,
 } from '@mui/material'
 import {theme} from '@theme/theme'
 import {useEffect, useState} from 'react'
@@ -77,16 +77,12 @@ const ConsentBox = styled(Box)(({theme}) => ({
 }))
 
 export default function SignUpForm(props: Props) {
-  // const {type} = props
-  // const [userId, setUserId] = useState<string>('')
   const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
   const [allConsentChecked, setAllConsentChecked] = useState<boolean>(false)
   const [requiredConsent, setRequiredConsent] = useState(initRequiredConsent)
   const [optionalConsent, setOptionalConsent] = useState(initOptionalConsent)
-
-  console.log(props)
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev)
   const onToggleShowPasswordCheck = () => setShowPassword(prev => !prev)
