@@ -199,7 +199,9 @@ export default function SignUpForm(props: Props) {
     },
   })
 
-  const onClickEmailCheck = () => CheckEmail.mutate('asdasd')
+  const onClickEmailCheck = () => {
+    console.log('!@#')
+  }
   const onClickSubmitBtn = async () => {
     try {
       const {id, password, email} = signUpInputs

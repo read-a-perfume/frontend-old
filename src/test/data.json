@@ -1,0 +1,14 @@
+{
+  "review": [
+    {
+      "id": 1,
+      "title": "테스트리뷰1",
+      "likeCount": 1
+    },
+    {
+      "id": 2,
+      "title": "테스트리뷰2",
+      "likeCount": 2
+    }
+  ]
+}
