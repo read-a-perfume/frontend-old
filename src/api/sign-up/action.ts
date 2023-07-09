@@ -1,8 +1,9 @@
 import {BASE_URL} from '@api/Apiconfig'
-import {useMutation} from '@tanstack/react-query'
 import axios from 'axios'
 
-const signUp = async (user: any) => {
+const pathname = '/api/v1/signup'
+
+export const signUp = async (user: any) => {
   const {id, name, password, email, marketingConsent, promotionConsent} = user
   try {
     const {data} = await axios.post(BASE_URL + '/api/v1/signup/email', {
@@ -20,12 +21,13 @@ const signUp = async (user: any) => {
   }
 }
 
-export const CheckEmail = useMutation({
-  mutationFn: (email: string) =>
-    axios.post(BASE_URL + '/api/v1/signup/email-verify/request', {
-      email,
-    }),
-  onSuccess: () => {
-    console.log('emailCheck')
-  },
-})
+export const CheckEmail = async (email: string) =>
+  axios.post(BASE_URL + +pathname + '/email-verify/request', {
+    email,
+  })
+
+export const CheckId = async (id: string) => {
+  axios.post(BASE_URL + '/api/v1/signup/check-username', {
+    username: id,
+  })
+}

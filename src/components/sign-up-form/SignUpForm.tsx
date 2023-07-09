@@ -1,4 +1,5 @@
 import {BASE_URL} from '@api/Apiconfig'
+import {CheckEmail, CheckId} from '@api/sign-up/action'
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import WestIcon from '@mui/icons-material/West'
@@ -22,7 +23,6 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
-import {CheckEmail} from '@api/sign-up/route'
 
 interface SignUpInputs {
   id: string
@@ -72,7 +72,10 @@ const CheckButton = styled(Button)(() => ({
 }))
 
 export default function SignUpForm(props: Props) {
+  props: Props
+) {
   // const {type} = props
+  // const [userId, setUserId] = useState<string>('')
   const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
@@ -81,9 +84,14 @@ export default function SignUpForm(props: Props) {
   const [optionalConsent, setOptionalConsent] = useState(initOptionalConsent)
   const [checkId, setCheckId] = useState<boolean>()
   const [emailAuthReady, setEmailAuthReady] = useState<boolean>(false)
-  const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // setStateAction이 없어 에러가 발생하였습니다. 위 코드는 사용하실 것 같아 그대로 두고 임시 코드를 만들었습니다.
+  // 위 코드 사용 시 아래 코드는 지우고 사용하시기 바랍니다.
+  const checkAuthNum = false;
   const [emailSendAlertOpen, setEmailSendAlertOpen] = useState<boolean>(false)
   const [authCode, setAuthCode] = useState<string>('')
+
+  console.log(props)   // 이 코드는 에러를 지우기 위해 임시로 만들어둔 코드입니다. 코드 수정 시 제거하고 사용하시기 바랍니다.
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev)
   const onToggleShowPasswordCheck = () => setShowPasswordCheck(prev => !prev)
@@ -154,53 +162,35 @@ export default function SignUpForm(props: Props) {
     return true
   }
 
-  const validationEmail = () => {
-    const {email} = signUpInputs
-    const emailRex = /[\w]/g
+  const checkIdQuery = useMutation({
+    mutationFn: CheckId,
+    onSuccess: () => {
+      setCheckId(true)
+    },
+  })
+  const onClickIdCheck = () => {
+    checkIdQuery.mutate(signUpInputs.id)
   }
-
-  const onClickIdCheck = async () => {
-    try {
-      if (validationId()) {
-        await axios.post(BASE_URL + '/api/v1/signup/check-username', {
-          username: signUpInputs.id,
-        })
-
-        setCheckId(true)
-      }
-    } catch (e) {
-      alert('실패')
-      console.error(e)
-    }
-  }
-
-  // const onClickEmailCheck = async () => {
-  //   try {
-  //     setEmailAuthReady(true)
-  //     setEmailSendAlertOpen(true)
-  //     const {data} = await axios.post(
-  //       BASE_URL + '/api/v1/signup/email-verify/request',
-  //       {email: signUpInputs.email},
-  //     )
-
-  //     console.log(data)
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
+  // const validationEmail = () => {
+  //   const {email} = signUpInputs
+  //   const emailRex = /[\w]/g
   // }
 
-  const mutation = useMutation({
-    mutationFn: () =>
-      axios.post(BASE_URL + '/api/v1/signup/email-verify/request', {
-        email: signUpInputs.email,
-      }),
+  const checkEmail = useMutation({
+    mutationFn: CheckEmail,
     onSuccess: () => {
       console.log('asdsadsadsa')
+      setEmailAuthReady(true)
+      setEmailSendAlertOpen(true)
     },
   })
 
   const onClickEmailCheck = () => {
+<<<<<<< HEAD
     console.log('!@#')
+=======
+    checkEmail.mutate(signUpInputs.email)
+>>>>>>> 4398c06dae5abfa143db0ac67b6453051aee1061
   }
   const onClickSubmitBtn = async () => {
     try {
