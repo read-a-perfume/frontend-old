@@ -50,7 +50,8 @@ const BannerButton = styled(Button)({
 })
 
 export default function Main() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const isLoggedIn = false;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   
   return (
