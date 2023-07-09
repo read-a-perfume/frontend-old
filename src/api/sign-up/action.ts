@@ -4,7 +4,7 @@ import axios from 'axios'
 const pathname = '/api/v1/signup'
 
 export const signUp = async (user: any) => {
-  const {id, name, password, email, marketingConsent, promotionConsent} = user
+  const {id, password, email, marketingConsent, promotionConsent} = user
   try {
     const {data} = await axios.post(BASE_URL + '/api/v1/signup/email', {
       username: id,

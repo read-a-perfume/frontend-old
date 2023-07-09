@@ -72,8 +72,6 @@ const CheckButton = styled(Button)(() => ({
 }))
 
 export default function SignUpForm(props: Props) {
-  props: Props
-) {
   // const {type} = props
   // const [userId, setUserId] = useState<string>('')
   const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
@@ -145,22 +143,23 @@ export default function SignUpForm(props: Props) {
     }))
   }
 
-  const validationId = () => {
-    const {id} = signUpInputs
-    const idRex = /^[a-z]+[a-z0-9]{6,16}$/g
+  // 주석 처리 : unused code 에러 발생 이유로 아래 코드를 주석처리 하였습니다.
+  // const validationId = () => {
+  //   const {id} = signUpInputs
+  //   const idRex = /^[a-z]+[a-z0-9]{6,16}$/g
 
-    if (id === '' || !id) {
-      alert('아이디를 입력해주세요.')
-      return false
-    }
+  //   if (id === '' || !id) {
+  //     alert('아이디를 입력해주세요.')
+  //     return false
+  //   }
 
-    if (!idRex.test(id)) {
-      alert('올바른 아이디를 입력해주세요.')
-      return false
-    }
+  //   if (!idRex.test(id)) {
+  //     alert('올바른 아이디를 입력해주세요.')
+  //     return false
+  //   }
 
-    return true
-  }
+  //   return true
+  // }
 
   const checkIdQuery = useMutation({
     mutationFn: CheckId,
