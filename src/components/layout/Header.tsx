@@ -16,6 +16,7 @@ const HeaderLayout = styled.div({
   height: '152px',
   display: 'flex',
   width: '100%',
+  borderBottom: '1px solid black'
 })
 
 const HeaderNavigation = styled.div(
