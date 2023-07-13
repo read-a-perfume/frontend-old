@@ -2,6 +2,7 @@ import React from 'react'
 
 import SignUp from '@pages/sign-up/SignUp'
 import Main from '@pages/main/Main'
+import Brand from '@pages/brand/Brand'
 
 const routes = [
   {
@@ -18,19 +19,13 @@ const routes = [
     route: '/sign-up',
     component: <SignUp />,
   },
-  // {
-  //   type: 'collapse',
-  //   name: 'test',
-  //   key: 'test-key',
-  //   collapse: [
-  //     {
-  //       name: 'test-first',
-  //       key: 'test-first-key',
-  //       route: '/test-first',
-  //       component: <TestFirst />,
-  //     },
-  //   ],
-  // },
+  {
+    type: 'brand',
+    name: 'brand',
+    key: 'brand-key',
+    route: '/brand/:id',
+    component: <Brand />,
+  },
 ]
 
 export default routes
