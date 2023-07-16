@@ -11,17 +11,35 @@ import {
 import {useState} from 'react'
 import CustomIcons from 'src/assets/customIcons'
 import EditOptions from './EditOptionsModal/EditOptions'
+import {Link} from 'react-router-dom'
 
-const Magazine = ({enterprise}: {enterprise: boolean}) => {
+const Magazine = ({
+  enterprise,
+  data,
+}: {
+  enterprise: boolean
+  data: {
+    id: number
+    image: string
+    title: string
+    content: string
+    hastag: string[]
+  }
+}) => {
   const [optionsOpen, setOptionsOpen] = useState<boolean>(false)
 
   return (
     <Card width="512px" height="594px">
-      <CardImage
-        height="320px"
-        src="/images/brand-magazine.png"
-        alt="brand magazine"
-      />
+      <Link
+        to={`/brand/:id/magazine/${data.id}`}
+        style={{textDecoration: 'none'}}
+      >
+        <CardImage
+          height="320px"
+          src="/images/brand-magazine.png"
+          alt="brand magazine"
+        />
+      </Link>
       <MagazineInfo>
         <FlexBox
           justifyContent="space-between"
@@ -29,7 +47,7 @@ const Magazine = ({enterprise}: {enterprise: boolean}) => {
           style={{marginBottom: '8px', marginTop: '16px'}}
         >
           <EditorProfile
-            src="/images/brand-image.png"
+            src="/images/brand-magazine.png"
             alt="editor profile image"
           />
           {enterprise && (
@@ -40,14 +58,14 @@ const Magazine = ({enterprise}: {enterprise: boolean}) => {
           )}
           {optionsOpen && <EditOptions />}
         </FlexBox>
-        <CardTitle>심플한 디자인이 돋보이는 전설적인 향수 N°5 빠르펭</CardTitle>
-        <CardSpan>
-          심플한 디자인이 돋보이는 전설적인 향수 N°5 빠르펭. 시간을 초월하여
-          사랑받는 아이콘으로 여성의 진정한 아름다움을 표현합니다. 알데하이드
-          플로랄 부케는 &quot;여성의 향기를 담은 여성미의 진수&quot;를 만들어
-          달라고 부탁한 가브리엘...
-        </CardSpan>
-        <HashTags>#플로랄 #여름신작 #슬로우 썸머</HashTags>
+        <Link
+          to={`/brand/:id/magazine/${data.id}`}
+          style={{textDecoration: 'none'}}
+        >
+          <CardTitle>{data.title}</CardTitle>
+          <CardSpan>{data.content}</CardSpan>
+          <HashTags>{'#' + data.hastag.join(' #')}</HashTags>
+        </Link>
       </MagazineInfo>
     </Card>
   )

@@ -57,7 +57,7 @@ export default function Main() {
   return (
     <>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <Header isLoggedIn={isLoggedIn} />
+      <Header />
       <Banner onClick={() => setIsOpen(!isLoggedIn ? true : false)}>
         <BannerImage src="/images/banner.png" alt="banner" />
         <BannerBox>
