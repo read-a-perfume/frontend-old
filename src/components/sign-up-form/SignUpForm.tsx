@@ -33,7 +33,7 @@ import {
 import FlexBox from '@components/layout/FlexBox'
 
 type SignUpInputs = {
-  id: string
+  username: string
   password: string
   passwordCheck: string
   email: string
@@ -48,7 +48,7 @@ type Props = {
 }
 
 const initInputs: SignUpInputs = {
-  id: '',
+  username: '',
   password: '',
   passwordCheck: '',
   companyName: '',
@@ -191,7 +191,7 @@ export default function SignUpForm(props: Props) {
 
   const onClickIdCheck = () =>
     checkUsernameMount.mutate({
-      id: getValues('id'),
+      id: getValues('username'),
     })
 
   const onClickEmailCheck = () => {
@@ -206,7 +206,7 @@ export default function SignUpForm(props: Props) {
     const {marketingConsent, promotionConsent} = optionalConsent
 
     signUpMount.mutate({
-      id: getValues('id'),
+      username: getValues('username'),
       password: getValues('password'),
       email: getValues('email'),
       marketingConsent,
@@ -237,13 +237,13 @@ export default function SignUpForm(props: Props) {
           <FormInput
             label="아이디"
             text={
-              errors.id && (
+              errors.username && (
                 <Typography
                   variant="body5"
                   color={theme.palette.error.main}
                   mt={1}
                 >
-                  {errors.id.message}
+                  {errors.username.message}
                 </Typography>
               )
             }
@@ -254,7 +254,7 @@ export default function SignUpForm(props: Props) {
               }}
               placeholder="6~16자 / 영문 소문자, 숫자 사용 가능"
               color="info"
-              {...register('id', {
+              {...register('username', {
                 required: {
                   value: true,
                   message: '아이디를 입력해주세요.',

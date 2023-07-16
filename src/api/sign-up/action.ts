@@ -3,17 +3,32 @@ import axios from 'axios'
 
 const pathname = '/api/v1/signup'
 
-export const SignUp = async (props: {
-  id: string
+type SignUpProps = {
+  username: string
   password: string
   email: string
   marketingConsent: boolean
   promotionConsent: boolean
-}) => {
-  const {id, password, email, marketingConsent, promotionConsent} = props
+}
+
+type CheckEmailProps = {
+  email: string
+}
+
+type CheckIdProps = {
+  id: string
+}
+
+type ConfirmCodeProps = {
+  code: string
+  key: string
+}
+
+export const SignUp = async (props: SignUpProps) => {
+  const {username, password, email, marketingConsent, promotionConsent} = props
   try {
     const {data} = await axios.post(BASE_URL + '/api/v1/signup/email', {
-      username: id,
+      username,
       password,
       email,
       marketingConsent,
@@ -26,7 +41,7 @@ export const SignUp = async (props: {
   }
 }
 
-export const CheckEmail = async (props: {email: string}) => {
+export const CheckEmail = async (props: CheckEmailProps) => {
   const {email} = props
 
   const {data} = await axios.post(
@@ -37,14 +52,14 @@ export const CheckEmail = async (props: {email: string}) => {
   return data
 }
 
-export const CheckId = async (props: {id: string}) => {
+export const CheckId = async (props: CheckIdProps) => {
   const {id} = props
   await axios.post(BASE_URL + '/api/v1/signup/check-username', {
     username: id,
   })
 }
 
-export const ConfirmCode = async (props: {code: string; key: string}) => {
+export const ConfirmCode = async (props: ConfirmCodeProps) => {
   const {code, key} = props
   const {data} = await axios.post(
     BASE_URL + '/api/v1/signup/email-verify/confirm',
