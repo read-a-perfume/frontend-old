@@ -27,7 +27,7 @@ const HeaderNavigation = styled.div(
     gap: gap,
     paddingLeft: '160px',
     paddingRight: '160px',
-    '&:nth-child(2)': {
+    '&:nth-of-type(2)': {
       display: 'flex',
       justifyContent: 'space-between',
     },
@@ -71,11 +71,8 @@ const Input = styled(OutlinedInput)({
   },
 })
 
-interface HeaderIProps {
-  isLoggedIn: boolean
-}
-
-const Header = ({isLoggedIn}: HeaderIProps) => {
+const Header = () => {
+  const isLoggedIn = true;
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>('')
 
