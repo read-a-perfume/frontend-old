@@ -1,9 +1,4 @@
-import {
-  Box,
-  Checkbox,
-  Typography,
-  styled,
-} from '@mui/material'
+import {Box, Checkbox, Typography, styled} from '@mui/material'
 import {theme} from '@theme/theme'
 
 type Props = {
@@ -54,7 +49,7 @@ export default function RadioTerm(props: Props) {
           </Typography>
         )}
         {required ? (
-          <Typography variant="body5" color={theme.palette.secondary.main}>
+          <Typography variant="body5" color={theme.palette.primary.main}>
             (*필수)
           </Typography>
         ) : (
