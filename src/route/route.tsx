@@ -1,9 +1,16 @@
-import React from 'react'
-
-import SignUp from '@pages/sign-up/SignUp'
 import Main from '@pages/main/Main'
+import SignUp from '@pages/sign-up/SignUp'
+import Test from '@pages/test/Test'
 
-const routes = [
+type Route = {
+  type: string
+  name: string
+  key: string
+  route: string
+  component: React.ReactElement
+}
+
+const routes: Route[] = [
   {
     type: 'index',
     name: 'main',
@@ -17,6 +24,13 @@ const routes = [
     key: 'signUp-key',
     route: '/sign-up',
     component: <SignUp />,
+  },
+  {
+    type: 'test',
+    name: 'test',
+    key: 'test-key',
+    route: '/test',
+    component: <Test />,
   },
   // {
   //   type: 'collapse',

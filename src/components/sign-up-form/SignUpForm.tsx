@@ -90,6 +90,7 @@ export default function SignUpForm(props: Props) {
   const onTestSubmit: SubmitHandler<SignUpInputs> = data => console.log(data)
 
   // const {type} = props
+  // const [userId, setUserId] = useState<string>('')
   const [signUpInputs, setSigUpInputs] = useState<SignUpInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
@@ -98,7 +99,10 @@ export default function SignUpForm(props: Props) {
   const [optionalConsent, setOptionalConsent] = useState(initOptionalConsent)
   const [checkId, setCheckId] = useState<boolean>()
   const [emailAuthReady, setEmailAuthReady] = useState<boolean>(false)
-  const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
+  // setStateAction이 없어 에러가 발생하였습니다. 위 코드는 사용하실 것 같아 그대로 두고 임시 코드를 만들었습니다.
+  // 위 코드 사용 시 아래 코드는 지우고 사용하시기 바랍니다.
+  const checkAuthNum = false
   const [emailSendAlertOpen, setEmailSendAlertOpen] = useState<boolean>(false)
   const [authKey, setAuthKey] = useState<string>('')
   const [confirmEmail, setConfirmEmail] = useState<boolean>(false)
