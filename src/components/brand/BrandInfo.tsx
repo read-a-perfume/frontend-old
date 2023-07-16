@@ -9,6 +9,7 @@ import {
   BrandURL,
   Follows,
 } from '@pages/brand/Brand.style'
+import {Link} from 'react-router-dom'
 
 const BrandInfoDetail = ({enterprise}: {enterprise: boolean}) => {
   return (
@@ -27,7 +28,11 @@ const BrandInfoDetail = ({enterprise}: {enterprise: boolean}) => {
         <BrandURL to="https://www.tamburins.com">
           https://www.tamburins.com
         </BrandURL>
-        {enterprise && <BrandSettings>설정 및 관리</BrandSettings>}
+        {enterprise && (
+          <Link to="/brand/:id/settings">
+            <BrandSettings>설정 및 관리</BrandSettings>
+          </Link>
+        )}
       </BrandInfo>
     </BrandInfoBlock>
   )

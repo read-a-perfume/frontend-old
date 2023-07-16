@@ -15,7 +15,6 @@ import {
   Types,
 } from '@pages/brand/Brand.style'
 import React from 'react'
-import CustomIcons from 'src/assets/customIcons'
 
 export enum Step {
   '0%' = 0,

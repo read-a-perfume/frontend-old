@@ -4,6 +4,7 @@ import {
   AddImageButton,
   AddProductButton,
   Banner,
+  BannerBlur,
   BannerImage,
   BrandContents,
   CardBox,
@@ -17,10 +18,9 @@ import Magazine from '@components/brand/Magazine'
 import BrandInfoDetail from '@components/brand/BrandInfo'
 import {Button} from '@mui/material'
 import FlexBox from '@components/layout/FlexBox'
+import { magazineData } from '@components/brand/magazineData'
 
 const Brand = () => {
-  const isLoggedIn = true
-  const magazineData = new Array(6).fill(0).map((el, i) => i + 1)
   const [enterprise, setEnterprise] = useState<boolean>(true)
   const [current, setCurrent] = useState<string>('magazine')
   const [fileURL, setFILEURL] = useState<string>('')
@@ -37,7 +37,7 @@ const Brand = () => {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header />
       <Banner>
         {enterprise && (
           <>
@@ -48,29 +48,31 @@ const Brand = () => {
               ref={fileRef}
               onChange={changeImageHandler}
             />
-            <AddBannerSpan imageURL={fileURL}>
+            <AddBannerSpan imageurl={fileURL} style={{ zIndex: 2}}>
               {fileURL ? '배너 이미지 변경' : '배너 이미지 추가'}
             </AddBannerSpan>
             <AddImageButton
-              imageURL={fileURL}
+              imageurl={fileURL}
               onClick={() => {
                 if (fileRef.current) {
                   fileRef.current.click()
                 }
               }}
+               style={{ zIndex: 2}}
             >
               컴퓨터에서 가져오기
             </AddImageButton>
           </>
         )}
-        {fileURL && <BannerImage src={fileURL} alt="banner" />}
+        {fileURL && <BannerImage src={fileURL} alt="banner" style={{ zIndex: 1}} />}
+        <BannerBlur />
       </Banner>
       <BrandInfoDetail enterprise={enterprise} />
       <Button
         style={{background: 'red'}}
         onClick={() => setEnterprise(!enterprise)}
       >
-        test
+        기업 확인 버튼
       </Button>
       <BrandContents>
         <Tabs>
@@ -98,8 +100,8 @@ const Brand = () => {
       </BrandContents>
       {current === 'magazine' ? (
         <CardBox>
-          {magazineData.map(el => (
-            <Magazine key={el} enterprise={enterprise} />
+          {magazineData.map(data => (
+            <Magazine key={data.id} enterprise={enterprise} data={data} />
           ))}
         </CardBox>
       ) : (

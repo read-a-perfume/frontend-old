@@ -1,6 +1,6 @@
 import {Step} from '@components/brand/InfoBoxes'
 import styled from '@emotion/styled'
-import {Button, ButtonGroup, Typography} from '@mui/material'
+import {Button, ButtonGroup, Switch, Typography} from '@mui/material'
 import {theme} from '@theme/theme'
 import {Link} from 'react-router-dom'
 import CustomIcons from 'src/assets/customIcons'
@@ -19,7 +19,7 @@ export const Banner = styled.div({
 export const BannerImage = styled.img({
   width: '100%',
   height: '470px',
-  objectFit: 'cover',
+  objectFit: 'fill',
   position: 'absolute',
   zIndex: 0,
   imageRendering: '-webkit-optimize-contrast',
@@ -27,9 +27,9 @@ export const BannerImage = styled.img({
 })
 
 export const AddImageButton = styled(Button)(
-  ({imageURL}: {imageURL: string}) => ({
-    backgroundColor: imageURL ? 'white' : '#202020',
-    color: imageURL ? '#191919' : 'white',
+  ({imageurl}: {imageurl: string}) => ({
+    backgroundColor: imageurl ? 'white' : '#202020',
+    color: imageurl ? '#191919' : 'white',
     fontSize: theme.typography.body3.fontSize,
     width: '137px',
     height: '34px',
@@ -52,10 +52,10 @@ export const Blur = styled.div({
 })
 
 export const AddBannerSpan = styled(Typography)(
-  ({imageURL}: {imageURL: string}) => ({
+  ({imageurl}: {imageurl: string}) => ({
     fontSize: theme.typography.body2.fontSize,
     fontWeight: 600,
-    color: imageURL ? 'white' : '#191919',
+    color: imageurl ? 'white' : '#191919',
     marginBottom: '80px',
     zIndex: 1,
     position: 'absolute',
@@ -74,7 +74,7 @@ export const BrandInfo = styled.div({
   marginTop: '31px',
   marginLeft: '30px',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
 })
 
 export const BrandProfile = styled.img({
@@ -102,7 +102,7 @@ export const BrandURL = styled(Link)({
   fontSize: theme.typography.body3.fontSize,
   color: '#FE7156',
   textDecoration: 'none',
-  marginBottom: '16px'
+  marginBottom: '16px',
 })
 
 export const BrandSettings = styled(Button)({
@@ -136,7 +136,7 @@ export const Tabs = styled.div({
   hegith: '64px',
   borderBottom: '1px solid #DCDCDC',
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
 })
 
 export const Tab = styled.div(({current}: {current: boolean}) => ({
@@ -160,9 +160,9 @@ export const AddProductButton = styled(Button)({
   background: '#FE7156',
   fontSize: theme.typography.body3.fontSize,
   color: 'white',
-  "&:hover" : {
-    background: '#FE7156'
-  }
+  '&:hover': {
+    background: '#FE7156',
+  },
 })
 
 export const WriteMagazine = styled(Button)({
@@ -172,9 +172,9 @@ export const WriteMagazine = styled(Button)({
   background: '#202020',
   fontSize: theme.typography.body3.fontSize,
   color: 'white',
-  "&:hover" : {
-    background: '#202020'
-  }
+  '&:hover': {
+    background: '#202020',
+  },
 })
 
 // Products & Magazine
@@ -223,7 +223,7 @@ export const OptionsGroup = styled(ButtonGroup)({
   borderRadius: '10px',
   width: '61px',
   height: '60px',
-  background: 'white'
+  background: 'white',
 })
 
 export const EditButton = styled(Button)({
@@ -231,7 +231,7 @@ export const EditButton = styled(Button)({
   width: '100%',
   fontSize: theme.typography.body4.fontSize,
   fontWeight: 500,
-  color: '#191919'
+  color: '#191919',
 })
 
 export const DeleteButton = styled(Button)({
@@ -337,5 +337,156 @@ export const PerfumeHamburger = styled(CustomIcons.HamburgerIcon)({
   position: 'absolute',
   marginTop: '24px',
   marginRight: '24px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 })
+
+// BrandSettings
+
+export const Section = styled.div({
+  width: '100%',
+  display: 'flex',
+  background: '#FAFAFA',
+  paddingBottom: '100px'
+})
+
+export const SettingsNav = styled.div({
+  width: '568px',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'flex-end',
+  flexDirection: 'column',
+  paddingRight: '127px',
+  marginTop: '88px',
+})
+
+export const SettingsTitle = styled(Typography)({
+  fontSize: theme.typography.h1.fontSize,
+  fontWeight: 700,
+  marginBottom: '40px',
+})
+
+export const SettingsNavItems = styled(Typography)(
+  ({clicked}: {clicked: boolean}) => ({
+    fontSize: theme.typography.body1.fontSize,
+    paddingLeft: '11px',
+    cursor: 'pointer',
+    lineHeight: '20px',
+    fontWeight: clicked ? 600 : 400,
+    color: clicked ? '#FE7156' : '#191919',
+    borderLeft: clicked ? '2px solid #FE7156' : '2px solid white',
+    textAlign: 'left',
+  }),
+)
+
+export const FormBlock = styled.div({
+  marginTop: '170px',
+})
+
+export const Profile = styled.div({
+  width: '104px',
+  height: '104px',
+  borderRadius: '194.5px',
+  border: '1px solid black',
+  background: 'white',
+})
+
+export const EditProfileButton = styled(Button)({
+  border: '1px solid #DBDBDB',
+  borderRadius: '10px',
+  background: 'white',
+  width: '88px',
+  height: '33px',
+  color: '#191919',
+  fontSize: theme.typography.body3.fontSize,
+  fontWeight: 600,
+})
+
+export const CategoryTitle = styled(Typography)(
+  ({marginTop}: {marginTop: string}) => ({
+    fontSize: theme.typography.body1.fontSize,
+    fontWeight: 600,
+    color: '#191919',
+    marginBottom: '25px',
+    marginTop: marginTop,
+  }),
+)
+
+export const Label = styled(Typography)({
+  fontSize: theme.typography.body3.fontSize,
+  color: '#303030',
+  fontWeight: 500,
+  marginBottom: '6px'
+})
+
+export const Input = styled.input(({full}: {full?: boolean}) => ({
+  width: full ? '719px' : '344px',
+  height: '50px',
+  paddingLeft: '15px',
+  borderRadius: '11px',
+  background: 'white',
+  fontSize: theme.typography.body3.fontSize,
+  fontWeight: 500,
+  border: '1px solid #EDEDED',
+  outline: '0 !important',
+  '&:focus': {
+    border: '1px solid #FF5838 !important',
+  },
+}))
+
+export const AlertSpan = styled(Typography)({
+  color: '#303030',
+  fontSize: theme.typography.body3.fontSize,
+  fontWeight: 500,
+})
+
+export const BannerBlur = styled.div(({opacity = 0.45} : {
+  opacity?: number;
+}) => ({
+  background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%), url(<path-to-image>), lightgray 0px -12.524px / 100% 172.34% no-repeat',
+  opacity: opacity,
+  position: 'absolute',
+  width: '100%',
+  height: '470px',
+  zIndex: 1
+}))
+
+export const Styledswitch = styled(Switch)({
+  width: 65,
+  height: 26,
+  padding: 0,
+  display: 'flex',
+  marginLeft: '15px',
+  '&:active': {
+    '& .MuiSwitch-thumb': {
+      width: 24,
+    },
+  },
+  '& .MuiSwitch-switchBase': {
+    padding: 2,
+    color: '#FE7156',
+    '&.Mui-checked': {
+      transform: 'translateX(40px)',
+      color: '#D9D9D9',
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: 'white',
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    width: 24,
+    height: 24,
+    marginTop: '-1.5px',
+    marginLeft: '-1.5px',
+    borderRadius: '100%',
+    transition: theme.transitions.create(['width'], {
+      duration: 100,
+    }),
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: '12px',
+    opacity: 1,
+    backgroundColor: 'white',
+    border: '1px solid #DBDBDB',
+  },
+});

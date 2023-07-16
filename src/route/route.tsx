@@ -3,6 +3,8 @@ import React from 'react'
 import SignUp from '@pages/sign-up/SignUp'
 import Main from '@pages/main/Main'
 import Brand from '@pages/brand/Brand'
+import MagazineContent from '@components/brand/MagazineContent'
+import BrandSettings from '@components/brand/BrandSettings'
 
 const routes = [
   {
@@ -25,6 +27,20 @@ const routes = [
     key: 'brand-key',
     route: '/brand/:id',
     component: <Brand />,
+  },
+  {
+    type: 'brand-settings',
+    name: 'brand-settings',
+    key: 'brand-settings-key',
+    route: '/brand/:id/settings',
+    component: <BrandSettings />,
+  },
+  {
+    type: 'magazine-detail',
+    name: 'magazine-detail',
+    key: 'magazine-detail-key',
+    route: '/brand/:id/magazine/:id',
+    component: <MagazineContent />,
   },
 ]
 
