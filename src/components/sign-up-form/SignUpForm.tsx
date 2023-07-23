@@ -1,5 +1,3 @@
-import {BASE_URL} from '@api/Apiconfig'
-import {CheckEmail, CheckId, ConfirmCode, SignUp} from '@api/sign-up/action'
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
 import Visibility from '@mui/icons-material/Visibility'
@@ -18,9 +16,7 @@ import {
   Typography,
   styled,
 } from '@mui/material'
-import {useMutation} from '@tanstack/react-query'
 import {theme} from '@theme/theme'
-import axios from 'axios'
 import {useEffect, useState} from 'react'
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {Link} from 'react-router-dom'
@@ -30,6 +26,8 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
+import {useMutation} from '@tanstack/react-query'
+import {CheckEmail, CheckId, ConfirmCode, SignUp} from '@api/sign-up/action'
 import FlexBox from '@components/layout/FlexBox'
 
 type SignUpInputs = {
@@ -213,6 +211,14 @@ export default function SignUpForm(props: Props) {
       promotionConsent,
     })
   }
+  // const onClickSubmitBtn = async () =>
+  //   signUpQuery.mutate({
+  //     id: signUpInputs.id,
+  //     password: signUpInputs.password,
+  //     email: signUpInputs.email,
+  //     marketingConsent: optionalConsent.marketingConsent,
+  //     promotionConsent: optionalConsent.promotionConsent,
+  //   })
 
   const closeEmailSendAlert = () => {
     setEmailSendAlertOpen(false)

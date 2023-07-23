@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const pathname = '/api/v1/signup'
 
+<<<<<<< HEAD
 type SignUpProps = {
   username: string
   password: string
@@ -29,6 +30,14 @@ export const SignUp = async (props: SignUpProps) => {
   try {
     const {data} = await axios.post(BASE_URL + '/api/v1/signup/email', {
       username,
+=======
+export const signUp = async (user: any) => {
+  const {id, password, email, marketingConsent, promotionConsent} = user
+  try {
+    const {data} = await axios.post(BASE_URL + '/api/v1/signup/email', {
+      username: id,
+      name: '',
+>>>>>>> c7f0e8a504d87300067518651242c3ac5abad93f
       password,
       email,
       marketingConsent,
@@ -41,6 +50,7 @@ export const SignUp = async (props: SignUpProps) => {
   }
 }
 
+<<<<<<< HEAD
 export const CheckEmail = async (props: CheckEmailProps) => {
   const {email} = props
 
@@ -66,3 +76,15 @@ export const ConfirmCode = async (props: ConfirmCodeProps) => {
     {code, key},
   )
 }
+=======
+export const CheckEmail = async (email: string) =>
+  axios.post(BASE_URL + +pathname + '/email-verify/request', {
+    email,
+  })
+
+export const CheckId = async (id: string) => {
+  axios.post(BASE_URL + '/api/v1/signup/check-username', {
+    username: id,
+  })
+}
+>>>>>>> c7f0e8a504d87300067518651242c3ac5abad93f
