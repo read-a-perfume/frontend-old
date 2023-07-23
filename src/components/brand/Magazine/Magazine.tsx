@@ -10,7 +10,7 @@ import {
 } from '@pages/brand/Brand.style'
 import {useState} from 'react'
 import CustomIcons from 'src/assets/customIcons'
-import EditOptions from './EditOptionsModal/EditOptions'
+import EditOptions from '../EditOptionsModal/EditOptions'
 import {Link} from 'react-router-dom'
 
 const Magazine = ({
