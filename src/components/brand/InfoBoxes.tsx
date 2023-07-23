@@ -37,7 +37,9 @@ const InfoBoxes = ({enterprise}: {enterprise: boolean}) => {
     <CardBox>
       {productData.map(el => (
         <FlexBox
-          style={{flexDirection: 'column', gap: '32px', flexWrap: 'wrap'}}
+          gap="32"
+          direction="column"
+          style={{flexWrap: 'wrap'}}
           key={el}
         >
           <Card width="376px" height="426px">
@@ -54,7 +56,7 @@ const InfoBoxes = ({enterprise}: {enterprise: boolean}) => {
               <ProductName>퍼퓸 카모</ProductName>
             </FlexBox>
           </Card>
-          <FlexBox style={{flexDirection: 'column', gap: '12px'}}>
+          <FlexBox direction="column" gap="12">
             <InfoBox>
               <BoxContent left={true}>
                 <Categories>강도</Categories>
@@ -65,7 +67,7 @@ const InfoBoxes = ({enterprise}: {enterprise: boolean}) => {
                 <Types color="#333">3시간-6시간</Types>
               </BoxContent>
             </InfoBox>
-            <DetailedInfoBox>
+            <DetailedInfoBox direction="column" gap="10">
               <FlexBox alignItems="center">
                 <Categories color="#333" style={{marginRight: '27px'}}>
                   독특한

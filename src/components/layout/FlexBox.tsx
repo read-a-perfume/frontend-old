@@ -4,15 +4,17 @@ interface FlexBoxProps {
     direction?: any | undefined
     justifyContent?: string
     alignItems?: string
+    gap?: string
     style?: any
     onClick?: React.MouseEventHandler<HTMLDivElement>
   }
   
   const FlexBox = ({
     children,
-    direction = 'flex',
+    direction = 'row',
     justifyContent,
     alignItems,
+    gap,
     style,
     onClick,
   }: FlexBoxProps) => {
@@ -25,6 +27,7 @@ interface FlexBoxProps {
           flexDirection: direction,
           justifyContent: justifyContent,
           alignItems: alignItems,
+          gap: gap,
           ...style,
         }}
       >
