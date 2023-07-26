@@ -9,6 +9,7 @@ import {
   GoogleIcon,
   LoginButton,
 } from './LoginModal.style'
+import {googleLogin} from '@api/login/actions'
 
 const Buttons = ({tabClick, errors, inputs, condition}: ButtonsProps) => {
   const navigate = useNavigate()
@@ -43,7 +44,7 @@ const Buttons = ({tabClick, errors, inputs, condition}: ButtonsProps) => {
               <DividerText>또는</DividerText>
             </FlexBox>
           </div>
-          <GoogleButton fullWidth style={{}}>
+          <GoogleButton fullWidth style={{}} onClick={googleLogin}>
             <GoogleIcon />
             Google 로그인
           </GoogleButton>
