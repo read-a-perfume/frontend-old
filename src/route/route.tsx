@@ -1,12 +1,8 @@
 import Main from '@pages/main/Main'
-<<<<<<< HEAD
-import SignUp from '@pages/sign-up/SignUp'
-import Test from '@pages/test/Test'
-=======
 import Brand from '@pages/brand/Brand'
 import MagazineContent from '@components/brand/MagazineContent'
 import BrandSettings from '@components/brand/BrandSettings'
->>>>>>> c7f0e8a504d87300067518651242c3ac5abad93f
+import SignUp from '@pages/sign-up/SignUp'
 
 type Route = {
   type: string
@@ -32,27 +28,6 @@ const routes: Route[] = [
     component: <SignUp />,
   },
   {
-<<<<<<< HEAD
-    type: 'test',
-    name: 'test',
-    key: 'test-key',
-    route: '/test',
-    component: <Test />,
-  },
-  // {
-  //   type: 'collapse',
-  //   name: 'test',
-  //   key: 'test-key',
-  //   collapse: [
-  //     {
-  //       name: 'test-first',
-  //       key: 'test-first-key',
-  //       route: '/test-first',
-  //       component: <TestFirst />,
-  //     },
-  //   ],
-  // },
-=======
     type: 'brand',
     name: 'brand',
     key: 'brand-key',
@@ -73,7 +48,6 @@ const routes: Route[] = [
     route: '/brand/:id/magazine/:id',
     component: <MagazineContent />,
   },
->>>>>>> c7f0e8a504d87300067518651242c3ac5abad93f
 ]
 
 export default routes
