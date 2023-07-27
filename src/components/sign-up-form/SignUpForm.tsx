@@ -1,21 +1,24 @@
-import {BASE_URL} from '@api/Apiconfig'
-import {CheckEmail, CheckId} from '@api/sign-up/action'
 import FormInput from '@components/sign-up-form/FormInput'
 import RadioTerm from '@components/sign-up-form/RadioTerm'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import WestIcon from '@mui/icons-material/West'
 import {
   Box,
   Button,
   Dialog,
   DialogContent,
+  FormControl,
   Grid,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
   Typography,
   styled,
 } from '@mui/material'
-import {useMutation} from '@tanstack/react-query'
 import {theme} from '@theme/theme'
-import axios from 'axios'
 import {useEffect, useState} from 'react'
+import {SubmitHandler, useForm} from 'react-hook-form'
 import {Link} from 'react-router-dom'
 import {
   BackButton,
@@ -23,15 +26,16 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
+import {useMutation} from '@tanstack/react-query'
+import {CheckEmail, CheckId, ConfirmCode, SignUp} from '@api/sign-up/action'
+import FlexBox from '@components/layout/FlexBox'
 
-interface SignUpInputs {
-  id: string
+type SignUpInputs = {
+  username: string
   password: string
   passwordCheck: string
   email: string
-}
-
-interface EnterpriseInputs extends SignUpInputs {
+  emailAuthCode: string
   companyName: string
   bizNum: string
   phoneNumer: string
@@ -41,13 +45,14 @@ type Props = {
   type: 'personal' | 'enterprise' | ''
 }
 
-const initInputs: EnterpriseInputs = {
-  id: '',
+const initInputs: SignUpInputs = {
+  username: '',
   password: '',
   passwordCheck: '',
   companyName: '',
   bizNum: '',
   email: '',
+  emailAuthCode: '',
   phoneNumer: '',
 }
 
@@ -72,9 +77,19 @@ const CheckButton = styled(Button)(() => ({
 }))
 
 export default function SignUpForm(props: Props) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: {errors},
+    setError,
+    getValues,
+  } = useForm<SignUpInputs>()
+  const onTestSubmit: SubmitHandler<SignUpInputs> = data => console.log(data)
+
   // const {type} = props
   // const [userId, setUserId] = useState<string>('')
-  const [signUpInputs, setSigUpInputs] = useState<EnterpriseInputs>(initInputs)
+  const [signUpInputs, setSigUpInputs] = useState<SignUpInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
   const [allConsentChecked, setAllConsentChecked] = useState<boolean>(false)
@@ -85,21 +100,22 @@ export default function SignUpForm(props: Props) {
   // const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
   // setStateAction이 없어 에러가 발생하였습니다. 위 코드는 사용하실 것 같아 그대로 두고 임시 코드를 만들었습니다.
   // 위 코드 사용 시 아래 코드는 지우고 사용하시기 바랍니다.
-  const checkAuthNum = false;
+  const checkAuthNum = false
   const [emailSendAlertOpen, setEmailSendAlertOpen] = useState<boolean>(false)
-  const [authCode, setAuthCode] = useState<string>('')
-
-  console.log(props)   // 이 코드는 에러를 지우기 위해 임시로 만들어둔 코드입니다. 코드 수정 시 제거하고 사용하시기 바랍니다.
+  const [authKey, setAuthKey] = useState<string>('')
+  const [confirmEmail, setConfirmEmail] = useState<boolean>(false)
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev)
   const onToggleShowPasswordCheck = () => setShowPasswordCheck(prev => !prev)
 
-  const onMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-  }
-
-  const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSigUpInputs({...signUpInputs, [event.target.name]: event.target.value})
+  const onValidPasswordMatched = (value: string, data: SignUpInputs) => {
+    if (data.password !== value) {
+      setError('passwordCheck', {
+        message: '비밀번호가 일치하지 않습니다.',
+      })
+      return '비밀번호가 일치하지 않습니다.'
+    }
+    return true
   }
 
   const onChangeAllConsentChecked = (
@@ -143,66 +159,57 @@ export default function SignUpForm(props: Props) {
     }))
   }
 
-  // 주석 처리 : unused code 에러 발생 이유로 아래 코드를 주석처리 하였습니다.
-  // const validationId = () => {
-  //   const {id} = signUpInputs
-  //   const idRex = /^[a-z]+[a-z0-9]{6,16}$/g
-
-  //   if (id === '' || !id) {
-  //     alert('아이디를 입력해주세요.')
-  //     return false
-  //   }
-
-  //   if (!idRex.test(id)) {
-  //     alert('올바른 아이디를 입력해주세요.')
-  //     return false
-  //   }
-
-  //   return true
-  // }
-
-  const checkIdQuery = useMutation({
-    mutationFn: CheckId,
+  const checkUsernameMount = useMutation(CheckId, {
     onSuccess: () => {
       setCheckId(true)
     },
   })
-  const onClickIdCheck = () => {
-    checkIdQuery.mutate(signUpInputs.id)
-  }
-  // const validationEmail = () => {
-  //   const {email} = signUpInputs
-  //   const emailRex = /[\w]/g
-  // }
 
-  const checkEmail = useMutation({
+  const checkEmailMount = useMutation({
     mutationFn: CheckEmail,
-    onSuccess: () => {
-      console.log('asdsadsadsa')
+    onSuccess: (data, variables, context) => {
+      const {key} = data
+      setAuthKey(key)
       setEmailAuthReady(true)
       setEmailSendAlertOpen(true)
     },
   })
 
-  const onClickEmailCheck = () => {
-    checkEmail.mutate(signUpInputs.email)
-  }
-  const onClickSubmitBtn = async () => {
-    try {
-      const {id, password, email} = signUpInputs
-      const {marketingConsent, promotionConsent} = optionalConsent
+  const confirmAuthMount = useMutation(ConfirmCode, {
+    onSuccess: () => {
+      setConfirmEmail(true)
+    },
+  })
 
-      await axios.post(BASE_URL + '/api/v1/signup/email', {
-        username: id,
-        name: '',
-        password,
-        email,
-        marketingConsent,
-        promotionConsent,
-      })
-    } catch (e) {
-      console.error(e)
-    }
+  const signUpMount = useMutation(SignUp, {
+    onSuccess: () => {
+      alert('성공')
+    },
+  })
+
+  const onClickIdCheck = () =>
+    checkUsernameMount.mutate({
+      id: getValues('username'),
+    })
+
+  const onClickEmailCheck = () => {
+    checkEmailMount.mutate({email: getValues('email')})
+  }
+
+  const onClickConfirmAuth = () => {
+    confirmAuthMount.mutate({code: getValues('emailAuthCode'), key: authKey})
+  }
+
+  const onSubmit = () => {
+    const {marketingConsent, promotionConsent} = optionalConsent
+
+    signUpMount.mutate({
+      username: getValues('username'),
+      password: getValues('password'),
+      email: getValues('email'),
+      marketingConsent,
+      promotionConsent,
+    })
   }
   // const onClickSubmitBtn = async () =>
   //   signUpQuery.mutate({
@@ -231,257 +238,389 @@ export default function SignUpForm(props: Props) {
         회원가입
       </Typography>
 
-      <Grid container width="100%" columnSpacing={2} rowSpacing={2}>
-        <FormInput
-          label="아이디"
-          name="id"
-          value={signUpInputs.id}
-          onChange={onChangeInputs}
-          placeholder="6~16자 / 영문 소문자, 숫자 사용 가능"
-          text={
-            checkId === false ? (
-              <Typography
-                variant="body5"
-                color={theme.palette.error.main}
-                mt={1}
-              >
-                중복된 아이디입니다. 다른 아이디로 다시 시도해주세요.
-              </Typography>
-            ) : checkId === true ? (
-              <Typography
-                variant="body5"
-                color={theme.palette.info.main}
-                mt={1}
-              >
-                사용가능한 아이디입니다.
-              </Typography>
-            ) : undefined
-          }
-        />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container width="100%" columnSpacing={2} rowSpacing={2}>
+          <FormInput
+            label="아이디"
+            text={
+              errors.username && (
+                <Typography
+                  variant="body5"
+                  color={theme.palette.error.main}
+                  mt={1}
+                >
+                  {errors.username.message}
+                </Typography>
+              )
+            }
+          >
+            <OutlinedInput
+              style={{
+                fontSize: theme.typography.body3.fontSize,
+              }}
+              placeholder="6~16자 / 영문 소문자, 숫자 사용 가능"
+              color="info"
+              {...register('username', {
+                required: {
+                  value: true,
+                  message: '아이디를 입력해주세요.',
+                },
+                minLength: {
+                  value: 6,
+                  message: '최소 6자 이상 입력해주세요.',
+                },
+                maxLength: {
+                  value: 16,
+                  message: '최대 16자 이하 입력해주세요.',
+                },
+                pattern: {
+                  value: /^[a-z](?=.*\d)[a-z0-9]+$/g,
+                  message: '올바른 아이디를 입력해주세요.',
+                },
+              })}
+            />
+          </FormInput>
 
-        <Grid item xs={3}>
-          <CheckButton
-            variant="contained"
-            disableElevation
-            style={{
-              backgroundColor:
-                checkId === false
-                  ? theme.palette.error.main
-                  : checkId === true
+          <Grid item xs={3}>
+            <CheckButton
+              variant="contained"
+              disableElevation
+              style={{
+                backgroundColor:
+                  checkId === false
+                    ? theme.palette.error.main
+                    : checkId === true
+                    ? theme.palette.grey[200]
+                    : 'black',
+              }}
+              onClick={onClickIdCheck}
+              disabled={checkId}
+            >
+              중복확인
+            </CheckButton>
+          </Grid>
+
+          <FormInput
+            label="비밀번호"
+            text={
+              errors.password && (
+                <Typography
+                  variant="body5"
+                  color={theme.palette.error.main}
+                  mt={1}
+                >
+                  {errors.password.message}
+                </Typography>
+              )
+            }
+          >
+            <FormControl variant="filled">
+              <OutlinedInput
+                style={{
+                  fontSize: theme.typography.body3.fontSize,
+                }}
+                color="info"
+                placeholder="8~16자 / 문자, 숫자, 특수 문자 모두 혼용"
+                type={showPassword ? 'text' : 'password'}
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: '비밀번호를 입력하세요',
+                  },
+                  minLength: {
+                    value: 8,
+                    message: '비밀번호는 최소 8자리 입니다.',
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: '비밀번호는 최대 16자리 입니다.',
+                  },
+                })}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={onToggleShowPassword} edge="end">
+                      {showPassword ? (
+                        <VisibilityOff
+                          style={{color: theme.palette.grey[400]}}
+                        />
+                      ) : (
+                        <Visibility style={{color: theme.palette.grey[400]}} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </FormInput>
+
+          <FormInput
+            label="비밀번호 재확인"
+            text={
+              errors.passwordCheck && (
+                <Typography
+                  variant="body5"
+                  color={theme.palette.error.main}
+                  mt={1}
+                >
+                  {errors.passwordCheck.message}
+                </Typography>
+              )
+            }
+          >
+            <FormControl variant="filled">
+              <OutlinedInput
+                style={{
+                  fontSize: theme.typography.body3.fontSize,
+                }}
+                color="info"
+                placeholder="비밀번호 재확인"
+                type={showPasswordCheck ? 'text' : 'password'}
+                {...register('passwordCheck', {
+                  required: {
+                    value: true,
+                    message: '재확인 비밀번호를 입력하세요',
+                  },
+                  validate: (value, data) =>
+                    onValidPasswordMatched(value, data),
+                })}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton onClick={onToggleShowPasswordCheck} edge="end">
+                      {showPassword ? (
+                        <VisibilityOff
+                          style={{color: theme.palette.grey[400]}}
+                        />
+                      ) : (
+                        <Visibility style={{color: theme.palette.grey[400]}} />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </FormInput>
+
+          <FormInput
+            label="본인 확인 이메일"
+            text={
+              errors.email && (
+                <Typography
+                  variant="body5"
+                  color={theme.palette.error.main}
+                  mt={1}
+                >
+                  {errors.email.message}
+                </Typography>
+              )
+            }
+          >
+            <OutlinedInput
+              style={{
+                fontSize: theme.typography.body3.fontSize,
+              }}
+              type="email"
+              placeholder="이메일을 입력해주세요."
+              color="info"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: '이메일을 입력해주세요.',
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: '올바른 이메일 형식으로 입력해주세요.',
+                },
+              })}
+            />
+          </FormInput>
+
+          <Grid item xs={3}>
+            <CheckButton
+              disableElevation
+              variant="contained"
+              color="inherit"
+              onClick={onClickEmailCheck}
+              disabled={emailAuthReady}
+              style={{
+                backgroundColor: emailAuthReady
                   ? theme.palette.grey[200]
                   : 'black',
-            }}
-            onClick={onClickIdCheck}
-            disabled={checkId}
-          >
-            중복확인
-          </CheckButton>
-        </Grid>
-        <FormInput
-          label="비밀번호"
-          name="password"
-          type="password"
-          value={signUpInputs.password}
-          onChange={onChangeInputs}
-          showPassword={showPassword}
-          onToggleShowPassword={onToggleShowPassword}
-          onMouseDownPassword={onMouseDownPassword}
-          placeholder="8~16자 / 문자, 숫자, 특수 문자 모두 혼용"
-        />
+              }}
+            >
+              인증(필수)
+            </CheckButton>
+          </Grid>
 
-        <FormInput
-          label="비밀번호 재확인"
-          name="passwordCheck"
-          type="password"
-          placeholder="비밀번호를 다시 입력해주세요."
-          value={signUpInputs.passwordCheck}
-          onChange={onChangeInputs}
-          showPassword={showPasswordCheck}
-          onToggleShowPassword={onToggleShowPasswordCheck}
-          onMouseDownPassword={onMouseDownPassword}
-        />
+          {emailAuthReady && (
+            <>
+              <FormInput
+                text={
+                  <FlexBox direction="column">
+                    <Typography variant="caption" mt={1}>
+                      혹시 인증번호가 오지 않았다면
+                      <button
+                        style={{
+                          color: theme.palette.primary.main,
+                          textDecoration: 'underline',
+                          marginLeft: 4,
+                          background: 'none',
+                          border: 'none',
+                          padding: 0,
+                          fontSize: theme.typography.caption.fontSize,
+                        }}
+                      >
+                        재발급
+                      </button>
+                      을 눌러주세요.
+                    </Typography>
+                  </FlexBox>
+                }
+              >
+                <OutlinedInput
+                  style={{
+                    fontSize: theme.typography.body3.fontSize,
+                  }}
+                  type="text"
+                  placeholder="인증코드 6자리 입력."
+                  color="info"
+                  {...register('emailAuthCode', {
+                    required: {
+                      value: true,
+                      message: '이메일 인증번호를 입력해주세요.',
+                    },
+                  })}
+                />
+              </FormInput>
 
-        <FormInput
-          label="본인 확인 이메일"
-          type="email"
-          name="email"
-          value={signUpInputs.email}
-          onChange={onChangeInputs}
-          placeholder="이메일을 입력해주세요."
-        />
+              <Grid item xs={3}>
+                <CheckButton
+                  disableElevation
+                  variant="contained"
+                  color="inherit"
+                  onClick={onClickConfirmAuth}
+                  disabled={confirmEmail}
+                  style={{
+                    backgroundColor: confirmEmail
+                      ? theme.palette.grey[200]
+                      : 'black',
+                    whiteSpace: 'nowrap',
+                    marginTop: 14,
+                  }}
+                >
+                  인증번호 확인
+                </CheckButton>
+              </Grid>
+            </>
+          )}
 
-        <Grid item xs={3}>
-          <CheckButton
-            disableElevation
-            variant="contained"
-            color="inherit"
-            onClick={onClickEmailCheck}
-            style={{
-              backgroundColor:
-                checkAuthNum === false ? 'black' : theme.palette.grey[200],
-            }}
-          >
-            인증(필수)
-          </CheckButton>
-        </Grid>
-        {emailAuthReady && (
-          <>
-            <FormInput
-              label=""
-              name="authCode"
-              value={authCode}
-              onChange={e => setAuthCode(e.target.value)}
-              placeholder="인증코드 6자리 입력"
-              text={
-                emailAuthReady ? (
-                  <Typography variant="body5" mt={1}>
-                    혹시 인증번호가 오지 않았다면
-                    <button
-                      type="button"
-                      onClick={onClickEmailCheck}
-                      style={{
-                        cursor: 'pointer',
-                        margin: '0px 4px',
-                        padding: 0,
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        color: theme.palette.secondary.main,
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      재발급
-                    </button>
-                    을 눌러주세요.
-                  </Typography>
-                ) : undefined
-              }
-            />
-            <Grid item xs={3}>
-              <CheckButton
-                disableElevation
-                variant="contained"
-                color="inherit"
-                onClick={() => console.log('authCode checked')}
+          <Grid item xs={10}>
+            <Typography variant="body3" mb={2}>
+              약관동의
+            </Typography>
+            <ConsentBox>
+              <Box
                 style={{
-                  backgroundColor:
-                    checkAuthNum === false ? 'black' : theme.palette.grey[200],
-                  marginTop: 16,
+                  borderBottom: '1px solid',
+                  borderColor: theme.palette.grey[500],
+                  paddingBottom: 4,
                 }}
               >
-                인증번호확인
-              </CheckButton>
-            </Grid>
-          </>
-        )}
-
-        <Grid item xs={10}>
-          <Typography variant="body3" mb={2}>
-            약관동의
-          </Typography>
-          <ConsentBox>
-            <Box
+                <RadioTerm
+                  label="전체동의"
+                  name="all"
+                  checked={allConsentChecked}
+                  onChange={onChangeAllConsentChecked}
+                  subText="선택항목에 대한 동의 포함"
+                />
+              </Box>
+              <ul
+                style={{
+                  padding: 0,
+                  margin: 0,
+                  marginTop: 8,
+                }}
+              >
+                <li>
+                  <RadioTerm
+                    label="만 14세 이상입니다."
+                    name="ltAge"
+                    checked={requiredConsent.ltAge}
+                    onChange={onChangeRequiredConsent}
+                    required
+                  />
+                </li>
+                <li>
+                  <RadioTerm
+                    label="이용약관"
+                    name="termOfUse"
+                    checked={requiredConsent.termOfUse}
+                    onChange={onChangeRequiredConsent}
+                    required
+                  />
+                </li>
+                <li>
+                  <RadioTerm
+                    label="개인정보 수집 및 이용동의"
+                    name="privacy"
+                    checked={requiredConsent.privacy}
+                    onChange={onChangeRequiredConsent}
+                    required
+                  />
+                </li>
+                <li>
+                  <RadioTerm
+                    label="개인정보 마케팅 활용 동의 "
+                    name="marketingConsent"
+                    checked={optionalConsent.marketingConsent}
+                    onChange={onChangeOptionalConsent}
+                  />
+                </li>
+                <li>
+                  <RadioTerm
+                    label="이벤트, 쿠폰, 특가 알림 메일 수신"
+                    name="promotionConsent"
+                    checked={optionalConsent.promotionConsent}
+                    onChange={onChangeOptionalConsent}
+                  />
+                </li>
+              </ul>
+            </ConsentBox>
+            <Button
+              type="submit"
+              variant="contained"
+              color="inherit"
+              size="large"
               style={{
-                borderBottom: '1px solid',
-                borderColor: theme.palette.grey[500],
-                paddingBottom: 4,
+                width: '100%',
               }}
             >
-              <RadioTerm
-                label="전체동의"
-                name="all"
-                checked={allConsentChecked}
-                onChange={onChangeAllConsentChecked}
-                subText="선택항목에 대한 동의 포함"
-              />
-            </Box>
-            <ul
-              style={{
-                padding: 0,
-                margin: 0,
-                marginTop: 8,
-              }}
-            >
-              <li>
-                <RadioTerm
-                  label="만 14세 이상입니다."
-                  name="ltAge"
-                  checked={requiredConsent.ltAge}
-                  onChange={onChangeRequiredConsent}
-                  required
-                />
-              </li>
-              <li>
-                <RadioTerm
-                  label="이용약관"
-                  name="termOfUse"
-                  checked={requiredConsent.termOfUse}
-                  onChange={onChangeRequiredConsent}
-                  required
-                />
-              </li>
-              <li>
-                <RadioTerm
-                  label="개인정보 수집 및 이용동의"
-                  name="privacy"
-                  checked={requiredConsent.privacy}
-                  onChange={onChangeRequiredConsent}
-                  required
-                />
-              </li>
-              <li>
-                <RadioTerm
-                  label="개인정보 마케팅 활용 동의 "
-                  name="marketingConsent"
-                  checked={optionalConsent.marketingConsent}
-                  onChange={onChangeOptionalConsent}
-                />
-              </li>
-              <li>
-                <RadioTerm
-                  label="이벤트, 쿠폰, 특가 알림 메일 수신"
-                  name="promotionConsent"
-                  checked={optionalConsent.promotionConsent}
-                  onChange={onChangeOptionalConsent}
-                />
-              </li>
-            </ul>
-          </ConsentBox>
-          <Button
-            variant="contained"
-            color="inherit"
-            size="large"
-            style={{
-              width: '100%',
-            }}
-            onClick={onClickSubmitBtn}
-          >
-            회원가입하기
-          </Button>
+              회원가입하기
+            </Button>
+          </Grid>
+          <Grid item xs={10}>
+            <LoginLinkBox>
+              <Typography color={theme.palette.grey[400]} variant="body4">
+                이미 회원이신가요?
+              </Typography>
+              <Link
+                to="#"
+                style={{
+                  cursor: 'pointer',
+                  margin: '0px 4px',
+                  padding: 0,
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  color: theme.palette.secondary.main,
+                  textDecoration: 'underline',
+                  marginLeft: 8,
+                }}
+              >
+                로그인하기
+              </Link>
+            </LoginLinkBox>
+          </Grid>
         </Grid>
-        <Grid item xs={10}>
-          <LoginLinkBox>
-            <Typography color={theme.palette.grey[400]} variant="body4">
-              이미 회원이신가요?
-            </Typography>
-            <Link
-              to="#"
-              style={{
-                cursor: 'pointer',
-                margin: '0px 4px',
-                padding: 0,
-                backgroundColor: 'transparent',
-                border: 'none',
-                color: theme.palette.secondary.main,
-                textDecoration: 'underline',
-                marginLeft: 8,
-              }}
-            >
-              로그인하기
-            </Link>
-          </LoginLinkBox>
-        </Grid>
-      </Grid>
-
+      </form>
       <Dialog open={emailSendAlertOpen}>
         <DialogContent>
           <Box display="flex" flexDirection="column" justifyContent="center">

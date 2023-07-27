@@ -71,9 +71,9 @@ export const theme = createTheme({
   palette: {
     primary: {
       '100': '#F1E8BD', //disabled
-      light: '#FAE688',
-      main: '#F8DB52',
-      dark: '#F1D138',
+      light: '#FD8142',
+      main: '#FE7156',
+      dark: '#FF5838',
     },
     secondary: {
       main: '#379070',
