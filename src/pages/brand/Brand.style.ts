@@ -1,4 +1,5 @@
 import {Step} from '@components/brand/InfoBoxes'
+import FlexBox from '@components/layout/FlexBox'
 import styled from '@emotion/styled'
 import {Button, ButtonGroup, Switch, Typography} from '@mui/material'
 import {theme} from '@theme/theme'
@@ -83,7 +84,7 @@ export const BrandProfile = styled.img({
   borderRadius: '194.5px',
   background: 'white',
   marginTop: '-17px',
-  zIndex: '0',
+  zIndex: 1,
 })
 
 export const BrandTitle = styled(Typography)({
@@ -311,15 +312,12 @@ export const Divider = styled.hr({
   border: 'none',
 })
 
-export const DetailedInfoBox = styled.div({
+export const DetailedInfoBox = styled(FlexBox)({
   width: '375px',
   height: '113px',
   borderRadius: '10px',
   background: '#F1F1F1',
-  display: 'flex',
-  flexDirection: 'column',
   padding: '13px 32px',
-  gap: '10px',
 })
 
 export const Dot = styled.div(({marginLeft}: {marginLeft: Step}) => ({
