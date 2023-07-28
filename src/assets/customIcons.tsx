@@ -103,12 +103,99 @@ const ArrowLeftIcon = createSvgIcon(
   'ArrowLeftIcon',
 )
 
+const BeforeIcon = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M13.9806 6L15.3906 7.41L10.8106 12L15.3906 16.59L13.9806 18L7.98062 12L13.9806 6Z"
+      fill="#DBDBDB"
+    />
+  </svg>,
+  'BeforeIcon',
+)
+
+const AfterIcon = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M10.0194 6L8.60938 7.41L13.1894 12L8.60938 16.59L10.0194 18L16.0194 12L10.0194 6Z"
+      fill="#B4B4B4"
+    />
+  </svg>,
+  'AfterIcon',
+)
+
+const FilterIcon = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <line x1="2" y1="4.5" x2="22" y2="4.5" stroke="black" />
+    <line x1="2" y1="18.5" x2="22" y2="18.5" stroke="black" />
+    <line x1="2" y1="11.5" x2="22" y2="11.5" stroke="black" />
+    <circle cx="16.5" cy="11.5" r="2" fill="white" stroke="black" />
+    <circle cx="6.5" cy="4.5" r="2" fill="white" stroke="black" />
+    <circle cx="6.5" cy="18.5" r="2" fill="white" stroke="black" />
+  </svg>,
+  'FilterIcon',
+)
+
+const HeartIcon = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M12 21.35L10.55 20.03C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 20.04L12 21.35Z"
+      fill="#FB196A"
+    />
+  </svg>,
+  'HeartIcon',
+)
+
+const CommentIcon2 = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M4 4H20V16H5.17L4 17.17V4ZM4 2C2.9 2 2.01 2.9 2.01 4L2 22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2H4ZM6 12H14V14H6V12ZM6 9H18V11H6V9ZM6 6H18V8H6V6Z"
+      fill="#DBDBDB"
+    />
+  </svg>,
+  'CommentIcon2',
+)
+
 const CustomIcons = {
   CommentIcon,
   SearchIcon,
   DefaultCheckIcon,
   YellowCheckIcon,
   ArrowLeftIcon,
+  BeforeIcon,
+  AfterIcon,
+  FilterIcon,
+  HeartIcon,
+  CommentIcon2
 }
 
 export default CustomIcons
