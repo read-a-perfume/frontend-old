@@ -4,13 +4,12 @@ import {
   IconButton,
   InputAdornment,
   OutlinedInput,
-  TextField,
   Typography,
 } from '@mui/material'
 import {theme} from '@theme/theme'
 import FlexBox from './FlexBox'
 import CustomIcons from 'src/assets/customIcons'
-import LoginModal from '@components/main/LoginModal/LoginModal'
+import LoginModal from '@components/LoginModal/LoginModal'
 import {useState} from 'react'
 
 const HeaderLayout = styled.div({
