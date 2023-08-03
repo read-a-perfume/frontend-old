@@ -49,6 +49,7 @@ const routes: Route[] = [
   //     },
   //   ],
   // },
+  {
     type: 'brand',
     name: 'brand',
     key: 'brand-key',

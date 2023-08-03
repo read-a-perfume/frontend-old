@@ -1,5 +1,4 @@
 import FlexBox from '@components/layout/FlexBox'
-import {Label} from '@components/main/LoginModal/FindPassword/FindPassword.style'
 import {FormControl} from '@mui/material'
 import {
   AlertSpan,
@@ -7,6 +6,7 @@ import {
   EditProfileButton,
   FormBlock,
   Input,
+  Label,
   Profile,
   Styledswitch,
 } from '@pages/brand/Brand.style'

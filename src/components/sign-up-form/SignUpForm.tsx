@@ -18,7 +18,7 @@ import {
 } from '@mui/material'
 import {theme} from '@theme/theme'
 import {useEffect, useState} from 'react'
-import {SubmitHandler, useForm} from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import {Link} from 'react-router-dom'
 import {
   BackButton,
@@ -26,8 +26,11 @@ import {
   LoginLinkBox,
   SignUpFormContainer,
 } from './styles'
-import {useMutation} from '@tanstack/react-query'
-import {CheckEmail, CheckId, ConfirmCode, SignUp} from '@api/sign-up/action'
+// import {useMutation} from '@tanstack/react-query'
+// import {
+//   CheckEmail,
+//   CheckId /*ConfirmCode,*/ /*SignUp*/,
+// } from '@api/sign-up/action'
 import FlexBox from '@components/layout/FlexBox'
 
 type SignUpInputs = {
@@ -45,16 +48,16 @@ type Props = {
   type: 'personal' | 'enterprise' | ''
 }
 
-const initInputs: SignUpInputs = {
-  username: '',
-  password: '',
-  passwordCheck: '',
-  companyName: '',
-  bizNum: '',
-  email: '',
-  emailAuthCode: '',
-  phoneNumer: '',
-}
+// const initInputs: SignUpInputs = {
+//   username: '',
+//   password: '',
+//   passwordCheck: '',
+//   companyName: '',
+//   bizNum: '',
+//   email: '',
+//   emailAuthCode: '',
+//   phoneNumer: '',
+// }
 
 const initRequiredConsent = {
   ltAge: false,
@@ -80,30 +83,29 @@ export default function SignUpForm(props: Props) {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: {errors},
     setError,
-    getValues,
+    // getValues,
   } = useForm<SignUpInputs>()
-  const onTestSubmit: SubmitHandler<SignUpInputs> = data => console.log(data)
+  // const onTestSubmit: SubmitHandler<SignUpInputs> = data => console.log(data)
 
-  // const {type} = props
+  const {type} = props;
+  console.log(type)
+  
   // const [userId, setUserId] = useState<string>('')
-  const [signUpInputs, setSigUpInputs] = useState<SignUpInputs>(initInputs)
+  // const [signUpInputs, setSigUpInputs] = useState<SignUpInputs>(initInputs)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false)
   const [allConsentChecked, setAllConsentChecked] = useState<boolean>(false)
   const [requiredConsent, setRequiredConsent] = useState(initRequiredConsent)
   const [optionalConsent, setOptionalConsent] = useState(initOptionalConsent)
-  const [checkId, setCheckId] = useState<boolean>()
-  const [emailAuthReady, setEmailAuthReady] = useState<boolean>(false)
+  // const [checkId, setCheckId] = useState<boolean>()
+  // const [emailAuthReady, setEmailAuthReady] = useState<boolean>(false)
   // const [checkAuthNum, setCheckAuthNum] = useState<boolean>(false)
-  // setStateAction이 없어 에러가 발생하였습니다. 위 코드는 사용하실 것 같아 그대로 두고 임시 코드를 만들었습니다.
-  // 위 코드 사용 시 아래 코드는 지우고 사용하시기 바랍니다.
-  const checkAuthNum = false
   const [emailSendAlertOpen, setEmailSendAlertOpen] = useState<boolean>(false)
-  const [authKey, setAuthKey] = useState<string>('')
-  const [confirmEmail, setConfirmEmail] = useState<boolean>(false)
+  // const [authKey, setAuthKey] = useState<string>('')
+  // const [confirmEmail, setConfirmEmail] = useState<boolean>(false)
 
   const onToggleShowPassword = () => setShowPassword(prev => !prev)
   const onToggleShowPasswordCheck = () => setShowPasswordCheck(prev => !prev)
@@ -159,57 +161,58 @@ export default function SignUpForm(props: Props) {
     }))
   }
 
-  const checkUsernameMount = useMutation(CheckId, {
-    onSuccess: () => {
-      setCheckId(true)
-    },
-  })
+  // const checkUsernameMount = useMutation(CheckId, {
+  //   onSuccess: () => {
+  //     setCheckId(true)
+  //   },
+  // })
 
-  const checkEmailMount = useMutation({
-    mutationFn: CheckEmail,
-    onSuccess: (data, variables, context) => {
-      const {key} = data
-      setAuthKey(key)
-      setEmailAuthReady(true)
-      setEmailSendAlertOpen(true)
-    },
-  })
+  // const checkEmailMount = useMutation({
+  //   mutationFn: CheckEmail,
+  //   onSuccess: (data /*variables,*/ /*context*/) => {
+  //     const {key} = data
+  //     setAuthKey(key)
+  //     setEmailAuthReady(true)
+  //     setEmailSendAlertOpen(true)
+  //   },
+  // })
 
-  const confirmAuthMount = useMutation(ConfirmCode, {
-    onSuccess: () => {
-      setConfirmEmail(true)
-    },
-  })
+  // const confirmAuthMount = useMutation(ConfirmCode, {
+  //   onSuccess: () => {
+  //     setConfirmEmail(true)
+  //   },
+  // })
 
-  const signUpMount = useMutation(SignUp, {
-    onSuccess: () => {
-      alert('성공')
-    },
-  })
+  // const signUpMount = useMutation(SignUp, {
+  //   onSuccess: () => {
+  //     alert('성공')
+  //   },
+  // })
 
-  const onClickIdCheck = () =>
-    checkUsernameMount.mutate({
-      id: getValues('username'),
-    })
+  const onClickIdCheck = () => {
+    // checkUsernameMount.mutate({
+    //   id: getValues('username'),
+    // }
+    // )
+  }
 
   const onClickEmailCheck = () => {
-    checkEmailMount.mutate({email: getValues('email')})
+    // checkEmailMount.mutate({email: getValues('email')})
   }
 
   const onClickConfirmAuth = () => {
-    confirmAuthMount.mutate({code: getValues('emailAuthCode'), key: authKey})
+    // confirmAuthMount.mutate({code: getValues('emailAuthCode'), key: authKey})
   }
 
   const onSubmit = () => {
-    const {marketingConsent, promotionConsent} = optionalConsent
-
-    signUpMount.mutate({
-      username: getValues('username'),
-      password: getValues('password'),
-      email: getValues('email'),
-      marketingConsent,
-      promotionConsent,
-    })
+    // const {marketingConsent, promotionConsent} = optionalConsent
+    // signUpMount.mutate({
+    //   username: getValues('username'),
+    //   password: getValues('password'),
+    //   email: getValues('email'),
+    //   marketingConsent,
+    //   promotionConsent,
+    // })
   }
   // const onClickSubmitBtn = async () =>
   //   signUpQuery.mutate({
@@ -285,16 +288,16 @@ export default function SignUpForm(props: Props) {
             <CheckButton
               variant="contained"
               disableElevation
-              style={{
-                backgroundColor:
-                  checkId === false
-                    ? theme.palette.error.main
-                    : checkId === true
-                    ? theme.palette.grey[200]
-                    : 'black',
-              }}
+              // style={{
+              //   backgroundColor:
+              //     checkId === false
+              //       ? theme.palette.error.main
+              //       : checkId === true
+              //       ? theme.palette.grey[200]
+              //       : 'black',
+              // }}
               onClick={onClickIdCheck}
-              disabled={checkId}
+              // disabled={checkId}
             >
               중복확인
             </CheckButton>
@@ -440,18 +443,18 @@ export default function SignUpForm(props: Props) {
               variant="contained"
               color="inherit"
               onClick={onClickEmailCheck}
-              disabled={emailAuthReady}
-              style={{
-                backgroundColor: emailAuthReady
-                  ? theme.palette.grey[200]
-                  : 'black',
-              }}
+              // disabled={emailAuthReady}
+              // style={{
+              //   backgroundColor: emailAuthReady
+              //     ? theme.palette.grey[200]
+              //     : 'black',
+              // }}
             >
               인증(필수)
             </CheckButton>
           </Grid>
 
-          {emailAuthReady && (
+          {/*emailAuthReady*/ true && (
             <>
               <FormInput
                 text={
@@ -498,14 +501,14 @@ export default function SignUpForm(props: Props) {
                   variant="contained"
                   color="inherit"
                   onClick={onClickConfirmAuth}
-                  disabled={confirmEmail}
-                  style={{
-                    backgroundColor: confirmEmail
-                      ? theme.palette.grey[200]
-                      : 'black',
-                    whiteSpace: 'nowrap',
-                    marginTop: 14,
-                  }}
+                  // disabled={confirmEmail}
+                  // style={{
+                  //   backgroundColor: confirmEmail
+                  //     ? theme.palette.grey[200]
+                  //     : 'black',
+                  //   whiteSpace: 'nowrap',
+                  //   marginTop: 14,
+                  // }}
                 >
                   인증번호 확인
                 </CheckButton>
