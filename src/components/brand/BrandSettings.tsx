@@ -26,7 +26,7 @@ const BrandSettings = () => {
       <Section ref={firstBlock}>
         <SettingsNav>
           <SettingsTitle>설정 및 관리</SettingsTitle>
-          <FlexBox style={{flexDirection: 'column', gap: '15px'}}>
+          <FlexBox gap="15px" direction="column">
             <SettingsNavItems
               clicked={clicked === 0}
               onClick={() => {

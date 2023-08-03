@@ -14,11 +14,12 @@ import {
 } from './Brand.style'
 import {useRef, useState} from 'react'
 import InfoBoxes from '@components/brand/InfoBoxes'
-import Magazine from '@components/brand/Magazine'
 import BrandInfoDetail from '@components/brand/BrandInfo'
 import {Button} from '@mui/material'
 import FlexBox from '@components/layout/FlexBox'
-import { magazineData } from '@components/brand/magazineData'
+import { magazineData } from '@components/brand/Magazine/magazineData'
+import { Link } from 'react-router-dom'
+import Magazine from '@components/brand/Magazine/Magazine'
 
 const Brand = () => {
   const [enterprise, setEnterprise] = useState<boolean>(true)
@@ -91,8 +92,8 @@ const Brand = () => {
             </Tab>
           </FlexBox>
           {enterprise && (
-            <FlexBox alignItems="center" style={{gap: '14px'}}>
-              <WriteMagazine>매거진 글쓰기</WriteMagazine>
+            <FlexBox alignItems="center" gap="14px">
+              <Link to={`/brand/:id/magazine/post`}><WriteMagazine>매거진 글쓰기</WriteMagazine></Link>
               <AddProductButton>제품 추가하기</AddProductButton>
             </FlexBox>
           )}

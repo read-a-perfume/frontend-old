@@ -29,7 +29,7 @@ const BrandInfoDetail = ({enterprise}: {enterprise: boolean}) => {
           https://www.tamburins.com
         </BrandURL>
         {enterprise && (
-          <Link to="/brand/:id/settings">
+          <Link to="/brand/:id/settings" style={{ textDecoration: 'none'}}>
             <BrandSettings>설정 및 관리</BrandSettings>
           </Link>
         )}

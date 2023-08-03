@@ -3,10 +3,10 @@ import styled from '@emotion/styled'
 import {Typography} from '@mui/material'
 import {theme} from '@theme/theme'
 import FlexBox from '@components/layout/FlexBox'
-import { magazineData } from './magazineData'
 import { useParams } from 'react-router-dom'
 import CustomIcons from 'src/assets/customIcons'
 import { Banner } from '@pages/brand/Brand.style'
+import { magazineData } from './magazineData'
 
 const BannerSpan = styled(Typography)({
   fontSize: theme.typography.body2.fontSize,
