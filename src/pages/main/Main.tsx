@@ -8,13 +8,13 @@ import { Banner, BannerBox, BannerButton, BannerImage, Content, Title } from './
 
 export default function Main() {
   // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const isLoggedIn = false
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
+  const isLoggedIn = false;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
   return (
     <>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
-      <Header isLoggedIn={isLoggedIn} />
+      <Header />
       <Banner onClick={() => setIsOpen(!isLoggedIn ? true : false)}>
         <BannerImage src="/images/banner.png" alt="banner" />
         <BannerBox>

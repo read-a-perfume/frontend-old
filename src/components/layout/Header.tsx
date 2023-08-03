@@ -1,82 +1,24 @@
-import styled from '@emotion/styled'
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-  Typography,
-} from '@mui/material'
-import {theme} from '@theme/theme'
+import {FormControl, IconButton, InputAdornment} from '@mui/material'
 import FlexBox from './FlexBox'
+import {useState} from 'react'
+import {useLocation} from 'react-router-dom'
+import {
+  HeaderLayout,
+  HeaderNavigation,
+  Input,
+  Logo,
+  NavBottom,
+  NavTop,
+  PostButtons,
+} from './Header.styles'
 import CustomIcons from 'src/assets/customIcons'
 import LoginModal from '@components/LoginModal/LoginModal'
-import {useState} from 'react'
 
-const HeaderLayout = styled.div({
-  height: '152px',
-  display: 'flex',
-  width: '100%',
-})
-
-const HeaderNavigation = styled.div(
-  ({height, gap}: {height: string; gap?: string}) => ({
-    display: 'flex',
-    alignItems: 'center',
-    height: height,
-    gap: gap,
-    paddingLeft: '160px',
-    paddingRight: '160px',
-    '&:nth-child(2)': {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-  }),
-)
-
-const NavTop = styled(Typography)({
-  fontSize: theme.typography.body3.fontSize,
-  fontWeight: 500,
-  lineHeight: '150%',
-  cursor: 'pointer',
-})
-
-const NavBottom = styled(Typography)({
-  fontSize: theme.typography.body1.fontSize,
-  fontWeight: 500,
-  lineHeight: '150%',
-  cursor: 'pointer',
-})
-
-const Logo = styled.img({
-  width: '236px',
-  height: '28.81px',
-  objectFit: 'contain',
-  cursor: 'pointer',
-})
-
-const Input = styled(OutlinedInput)({
-  width: '376px',
-  height: '36.4px',
-  fontSize: theme.typography.body3.fontSize,
-  '& fieldset': {
-    border: '1px solid #EDEDED',
-    borderRadius: '10px',
-  },
-  input: {
-    '&::placeholder': {
-      fontSize: theme.typography.body3.fontSize,
-      // color: '#A9A9A9',
-    },
-  },
-})
-
-interface HeaderIProps {
-  isLoggedIn: boolean
-}
-
-const Header = ({isLoggedIn}: HeaderIProps) => {
+const Header = () => {
+  const isLoggedIn = true
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>('')
+  const location = useLocation()
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isLoggedIn) {
@@ -86,15 +28,39 @@ const Header = ({isLoggedIn}: HeaderIProps) => {
     }
   }
 
+  const rightComponent = () => {
+    if (location.pathname.split('/').includes('post')) {
+      return (
+        <FlexBox gap="16px">
+          <PostButtons btntype="cancel">취소</PostButtons>
+          <PostButtons btntype="upload">매거진 업로드</PostButtons>
+        </FlexBox>
+      )
+    } else {
+      return (
+        <FormControl>
+          <Input
+            placeholder="향수,브랜드,뉴스 무엇이든 검색해보세요!"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton style={{marginRight: '-5px'}}>
+                  <CustomIcons.SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            }
+            onChange={changeHandler}
+            value={keyword}
+          />
+        </FormControl>
+      )
+    }
+  }
+
   return (
     <>
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <HeaderLayout style={{display: 'flex', flexDirection: 'column'}}>
-        <HeaderNavigation
-          height="58px"
-          gap="28px"
-          style={{justifyContent: 'end'}}
-        >
+        <HeaderNavigation height="58px">
           <NavTop
             onClick={() =>
               !isLoggedIn ? setIsOpen(true) : console.log('알림 링크')
@@ -115,7 +81,8 @@ const Header = ({isLoggedIn}: HeaderIProps) => {
             <Logo src={'/images/logo-text.png'} alt="logo" />
             <FlexBox
               alignItems="center"
-              style={{marginLeft: '182px', gap: '52px'}}
+              gap="52px"
+              style={{marginLeft: '182px'}}
             >
               <NavBottom
                 onClick={() =>
@@ -154,20 +121,7 @@ const Header = ({isLoggedIn}: HeaderIProps) => {
               </NavBottom>
             </FlexBox>
           </FlexBox>
-          <FormControl>
-            <Input
-              placeholder="향수,브랜드,뉴스 무엇이든 검색해보세요!"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton style={{marginRight: '-5px'}}>
-                    <CustomIcons.SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
-              onChange={changeHandler}
-              value={keyword}
-            />
-          </FormControl>
+          {rightComponent()}
         </HeaderNavigation>
       </HeaderLayout>
     </>
