@@ -8,6 +8,31 @@ import {
   SectionSubTitle,
   SectionTitle,
 } from '@pages/main/Main.style'
+import {
+  CardImage,
+  CardSpan,
+  CardTitle,
+  EditorProfile,
+} from '@pages/brand/Brand.style'
+import {HashTags} from '../ReviewCard/styles'
+import styled from '@emotion/styled'
+
+const Image = styled(CardImage)({
+  width: '100%',
+  borderTopLeftRadius: 13,
+  borderTopRightRadius: 13,
+  objectFit: 'cover',
+  marginBottom: -9,
+})
+
+const Card = styled.div({
+  height: 274,
+  width: '100%',
+  borderBottomLeftRadius: 13,
+  borderBottomRightRadius: 13,
+  border: '1px solid #EDEDED',
+  padding: 24,
+})
 
 const Magazines = () => {
   // const [currentPage, setCurrentPage] = useState<number>(0)
@@ -24,29 +49,9 @@ const Magazines = () => {
           .slice(currentPage * LAST_PAGE, currentPage * LAST_PAGE + LAST_PAGE)
           .map(data => (
             <MagazineCard key={data.title}>
-              <img
-                src={data.image}
-                alt="magazine cover"
-                style={{
-                  width: '100%',
-                  height: 320,
-                  borderTopLeftRadius: 13,
-                  borderTopRightRadius: 13,
-                  objectFit: 'cover',
-                  marginBottom: -9,
-                }}
-              />
-              <div
-                style={{
-                  height: 274,
-                  width: '100%',
-                  borderBottomLeftRadius: 13,
-                  borderBottomRightRadius: 13,
-                  border: '1px solid #EDEDED',
-                  padding: 24,
-                }}
-              >
-                <div
+              <Image height="320" src={data.image} alt="magazine cover" />
+              <Card>
+                <EditorProfile
                   style={{
                     width: 40,
                     height: 40,
@@ -54,12 +59,10 @@ const Magazines = () => {
                     background: 'blue',
                   }}
                 />
-                <Typography>{data.title}</Typography>
-                <Typography>{data.content}</Typography>
-                {data.hash.map(el => (
-                  <span key={el[0]}>#{el} </span>
-                ))}
-              </div>
+                <CardTitle>{data.title}</CardTitle>
+                <CardSpan>{data.content}</CardSpan>
+                <HashTags>{'#' + data.hashtag.join(' #')}</HashTags>
+              </Card>
             </MagazineCard>
           ))}
       </FlexBox>

@@ -1,6 +1,6 @@
 import FlexBox from '@components/layout/FlexBox'
 import {SectionSubTitle, SectionTitle} from '@pages/main/Main.style'
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import CustomIcons from 'src/assets/customIcons'
 import {noteData} from '../constants'
 import {
@@ -27,7 +27,7 @@ const Notes = () => {
       </SectionSubTitle>
       <FlexBox alignItems="center">
         <CustomIcons.BeforeIcon style={{marginRight: 36, cursor: 'pointer'}} />
-        <FlexBox style={{gap: 52}}>
+        <FlexBox style={{gap: '5.8%', width: '100%', marginRight: 36}}>
           {noteData.map(note => (
             <FlexBox
               key={note.name}
@@ -45,7 +45,9 @@ const Notes = () => {
             </FlexBox>
           ))}
         </FlexBox>
-        <CustomIcons.AfterIcon style={{marginLeft: 36, cursor: 'pointer'}} />
+        <CustomIcons.AfterIcon
+          style={{marginLeft: 36, cursor: 'pointer', marginRight: '3%'}}
+        />
       </FlexBox>
       <FlexBox style={{marginTop: 74, gap: 32}}>
         <NoteBox>

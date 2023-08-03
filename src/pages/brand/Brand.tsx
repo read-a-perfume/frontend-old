@@ -17,9 +17,9 @@ import InfoBoxes from '@components/brand/InfoBoxes'
 import BrandInfoDetail from '@components/brand/BrandInfo'
 import {Button} from '@mui/material'
 import FlexBox from '@components/layout/FlexBox'
-import { magazineData } from '@components/brand/Magazine/magazineData'
 import { Link } from 'react-router-dom'
 import Magazine from '@components/brand/Magazine/Magazine'
+import { magazineData } from '@components/main/constants'
 
 const Brand = () => {
   const [enterprise, setEnterprise] = useState<boolean>(true)
