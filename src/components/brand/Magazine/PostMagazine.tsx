@@ -1,39 +1,60 @@
-import EditOptions from '@components/layout/EditOptions'
-import FlexBox from '@components/layout/FlexBox'
 import Header from '@components/layout/Header'
 import {BannerBlur, BannerImage} from '@pages/brand/Brand.style'
-import React, {useRef, useState} from 'react'
-import CustomIcons from 'src/assets/customIcons'
+import React, {useEffect, useRef, useState} from 'react'
 import {
-  AddImage,
-  AttributeButton,
-  Attributes,
-  AttributeText,
+  AddButton,
+  AddButtonText,
   BannerButton,
   BannerContent,
-  ContentImage,
-  ContentInput,
-  ContentWrapper,
+  EditorTitle,
   HeaderImage,
-  OptionsIcon,
-  SubTitleInput,
+  ImageDefault,
+  TextBox,
   TitleInput,
 } from './Magazine.style'
+import FlexBox from '@components/layout/FlexBox'
+import CustomIcons from 'src/assets/customIcons'
+import UploadIcon from 'src/assets/UploadIcon'
+import {Button, Typography} from '@mui/material'
 
-type DataBox = {
+interface InputItem {
   id: number
+  type: number
   subtitle: string
   content: string
+  image: string
 }
 
 const PostMagazine = () => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
-  const postImageRef = useRef<HTMLInputElement>(null)
   const [fileURL, setFileURL] = useState<string>('')
   const [postImageURL, setPostImageURL] = useState<string>('')
-  const [dataBoxes, setDataBoxes] = useState<DataBox[]>([])
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [pattern, setPattern] = useState<number[]>([])
+  const [inputs, setInputs] = useState({
+    title: '',
+    tags: '',
+  })
+  const [countInput, setCountInput] = useState<number>(1)
+  const [inputItems, setInputItems] = useState<InputItem[]>([
+    {
+      id: 0,
+      type: 1,
+      subtitle: '',
+      content: '',
+      image: '',
+    },
+  ])
+  const [completed, setCompleted] = useState<boolean>(false)
+
+  useEffect(() => {
+    console.log(postImageURL)
+
+    if (inputs.title) {
+      setCompleted(true)
+    } else {
+      setCompleted(false)
+    }
+  }, [inputs.title])
 
   const changeImageHandler = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -51,33 +72,35 @@ const PostMagazine = () => {
     }
   }
 
-  const subtitleChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    idx: number,
+  const changeContentHandler = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    index: number,
   ) => {
-    const {value} = event.target
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+      textareaRef.current.style.height =
+        textareaRef.current?.scrollHeight + 'px'
+    }
 
-    if (idx > dataBoxes.length) return
-    const contentUpdate = JSON.parse(JSON.stringify(dataBoxes))
-    contentUpdate[idx].subtitle = value
-    setDataBoxes(contentUpdate)
+    if (index > inputItems.length) return
+    const test = JSON.parse(JSON.stringify(inputItems))
+    test[index].content = event.target.value
+    setInputItems(test)
   }
 
-  const contentChangeHandler = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    idx: number,
+  const changeSubtitleHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number,
   ) => {
-    const {value} = event.target
-
-    if (idx > dataBoxes.length) return
-    const contentUpdate = JSON.parse(JSON.stringify(dataBoxes))
-    contentUpdate[idx].content = value
-    setDataBoxes(contentUpdate)
+    if (index > inputItems.length) return
+    const test = JSON.parse(JSON.stringify(inputItems))
+    test[index].subtitle = event.target.value
+    setInputItems(test)
   }
 
   return (
     <>
-      <Header />
+      <Header editorPostCompleted={completed} />
       <HeaderImage>
         <input
           type="file"
@@ -109,110 +132,252 @@ const PostMagazine = () => {
           </>
         )}
       </HeaderImage>
-      <Attributes>
-        <AttributeButton onClick={() => {
-          const newInput = {
-            id: pattern.length - 1,
-            subtitle: '',
-            content: '',
-          }
-      
-          setDataBoxes([...dataBoxes, newInput])
-          setPattern([...pattern, 1])
-        }}>
-          <CustomIcons.TitleIcon />
-          <AttributeText>소제목 추가</AttributeText>
-        </AttributeButton>
-        <AttributeButton onClick={() => {
-          setPattern([...pattern, 2])
-          setDataBoxes([...dataBoxes, {
-            id: pattern.length - 1,
-            subtitle: 'image',
-            content: 'image',
-          }])
-        }}>
-          <CustomIcons.ImageIcon />
-          <AttributeText>이미지 추가</AttributeText>
-        </AttributeButton>
-        <AttributeButton onClick={() => setPattern([...pattern, 3])}>
-          <CustomIcons.TagIcon />
-          <AttributeText>태그 추가</AttributeText>
-        </AttributeButton>
-      </Attributes>
-      <ContentWrapper>
-        <TitleInput placeholder="매거진 제목을 입력하세요." />
-        {pattern.map((el, index) => {
-          if (el === 1) {
-            return (
-              <div key={index}>
-                <SubTitleInput
-                  name={`subtitle-${index}`}
-                  placeholder="소제목을 입력하세요."
-                  onChange={event => subtitleChangeHandler(event, index)}
-                  value={dataBoxes[index].subtitle}
-                />
-                <ContentInput
-                  name={`content-${index}`}
-                  placeholder="본문글을 자유롭게 작성하세요."
-                  onChange={event => contentChangeHandler(event, index)}
-                  value={dataBoxes[index].content}
-                  minRows={1}
-                  maxRows={10}
-                />
-              </div>
-            )
-          } else if (el === 2) {
-            return (
-              <AddImage key={el}>
-                <FlexBox
-                  justifyContent="end"
-                  style={{width: '100%', paddingRight: 32}}
-                >
-                  <OptionsIcon onClick={() => setIsOpen(true)} />
-                  {isOpen && <EditOptions />}
-                </FlexBox>
-                <FlexBox
-                  justifyContent="center"
-                  alignItems="center"
-                  style={{width: 1192, height: 586, position: 'absolute'}}
-                >
-                  <input
-                    type="file"
-                    accept="image/jpg,image/png,image/jpeg"
-                    hidden
-                    ref={postImageRef}
-                    onChange={event => changeImageHandler(event, 'content')}
+      <div>
+        <div style={{margin: '47px 160px 38px 160px'}}>
+          <FlexBox alignItems="center" style={{marginBottom: 12}}>
+            <EditorTitle style={{width: 60}}>글 제목</EditorTitle>
+            <TitleInput
+              placeholder="글 제목을 입력하세요"
+              style={{width: '100%', outline: 'none'}}
+              value={inputs.title}
+              onChange={event =>
+                setInputs({...inputs, title: event.target.value})
+              }
+            />
+          </FlexBox>
+          <FlexBox alignItems="center">
+            <EditorTitle style={{width: 60}}>태그</EditorTitle>
+            <TitleInput
+              placeholder="태그를 활용하여 키워드를 추가하세요. 예시) #선물추천 #신제품소개"
+              style={{width: '100%', outline: 'none'}}
+              value={inputs.tags}
+              onChange={event =>
+                setInputs({...inputs, tags: event.target.value})
+              }
+            />
+          </FlexBox>
+        </div>
+        <FlexBox
+          style={{
+            padding: '0px 160px',
+            marginTop: 38,
+            height: 48,
+            backgroundColor: '#FAFAFA',
+            border: '1px solid #DBDBDB',
+          }}
+        >
+          <AddButton
+            onClick={() => {
+              if (
+                inputItems.length > 1 &&
+                inputItems[inputItems.length - 1].type === 1 &&
+                inputItems[inputItems.length - 1].content === ''
+              ) {
+                const tmp = inputItems
+                tmp.pop()
+                setInputItems(tmp)
+              }
+
+              setCountInput(countInput + 2)
+              const newInput = {
+                id: countInput - 1,
+                type: 2,
+                subtitle: '',
+                content: '',
+                image: '',
+              }
+              setInputItems([
+                ...inputItems,
+                newInput,
+                {
+                  id: countInput,
+                  type: 1,
+                  subtitle: '',
+                  content: '',
+                  image: '',
+                },
+              ])
+            }}
+          >
+            <CustomIcons.TitleIcon />
+            <AddButtonText>소제목 추가</AddButtonText>
+          </AddButton>
+          <AddButton
+            style={{borderLeft: 'none'}}
+            onClick={() => {
+              if (
+                inputItems.length > 1 &&
+                inputItems[inputItems.length - 1].type === 1 &&
+                inputItems[inputItems.length - 1].content === ''
+              ) {
+                const tmp = inputItems
+                tmp.pop()
+                setInputItems(tmp)
+              }
+
+              setCountInput(countInput + 2)
+              const newInput = {
+                id: countInput - 1,
+                type: 3,
+                subtitle: '',
+                content: '',
+                image: '',
+              }
+              setInputItems([
+                ...inputItems,
+                newInput,
+                {
+                  id: countInput,
+                  type: 1,
+                  subtitle: '',
+                  content: '',
+                  image: '',
+                },
+              ])
+            }}
+          >
+            <CustomIcons.ImageIcon />
+            <AddButtonText>이미지 추가</AddButtonText>
+          </AddButton>
+        </FlexBox>
+        <TextBox style={{marginBottom: 100}}>
+          {inputItems.map((el, index) => {
+            if (el.type === 1) {
+              return (
+                <div key={index}>
+                  <textarea
+                    style={{
+                      width: '100%',
+                      outline: 'none',
+                      border: 'none',
+                      resize: 'none',
+                      fontSize: 20,
+                      fontWeight: '500',
+                      color: el.content ? '#707070' : '#A9A9A9',
+                      lineHeight: '150%',
+                    }}
+                    ref={textareaRef}
+                    value={el.content}
+                    onChange={event => {
+                      changeContentHandler(event, index)
+                    }}
+                    placeholder={
+                      index === 0 ? '본문글을 자유롭게 작성하세요.' : ''
+                    }
+                    onKeyDown={event => {
+                      if (
+                        (48 <= event.keyCode && event.keyCode <= 57) ||
+                        (event.keyCode === 8 && el.content.length === 0)
+                      ) {
+                        const tmp = inputItems.filter((_, i) => i !== index)
+                        setInputItems(tmp)
+                      }
+                    }}
                   />
-                  {!postImageURL && (
-                    <>
-                      <BannerContent
-                        imageurl={postImageURL}
-                        style={{marginBottom: 80}}
+                </div>
+              )
+            } else if (el.type === 2) {
+              return (
+                <div key={index}>
+                  <input
+                    style={{
+                      width: '100%',
+                      outline: 'none',
+                      border: 'none',
+                      marginTop: 24,
+                      marginBottom: 24,
+                      fontSize: 24,
+                      lineHeight: '150%',
+                      fontWeight: '500',
+                      color: el.subtitle ? '#707070' : '#A9A9A9',
+                    }}
+                    value={el.subtitle}
+                    onChange={event => changeSubtitleHandler(event, index)}
+                    placeholder="소제목을 입력하세요."
+                    onKeyDown={event => {
+                      if (
+                        (48 <= event.keyCode && event.keyCode <= 57) ||
+                        (event.keyCode === 8 && el.content.length === 0)
+                      ) {
+                        const tmp = inputItems.filter((_, i) => i !== index)
+                        setInputItems(tmp)
+                      }
+                    }}
+                  />
+                </div>
+              )
+            } else if (el.type === 3) {
+              return (
+                <div key={index}>
+                  {el.image ? (
+                    <ImageDefault>
+                      <img
+                        src={el.image}
+                        alt="post"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </ImageDefault>
+                  ) : (
+                    <ImageDefault>
+                      <UploadIcon />
+                      <Typography
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '600',
+                          color: '#191919',
+                          marginTop: 16,
+                          marginBottom: 16,
+                        }}
                       >
                         이미지를 추가해보세요.
-                      </BannerContent>
-                      <BannerButton
-                        image={postImageURL.length > 0}
-                        imageurl={postImageURL}
-                        onClick={() => {
-                          if (postImageRef.current) {
-                            postImageRef.current.click()
+                      </Typography>
+                      <input
+                        type="file"
+                        hidden
+                        ref={fileRef}
+                        accept="image/*"
+                        onChange={event => {
+                          event.preventDefault()
+                          if (index > inputItems.length) return
+
+                          if (event.target.files) {
+                            const newFileURL = URL.createObjectURL(
+                              event.target.files[0],
+                            )
+
+                            const test = JSON.parse(JSON.stringify(inputItems))
+                            test[index].image = newFileURL
+                            setInputItems(test)
                           }
+                        }}
+                      />
+                      <Button
+                        style={{
+                          width: 137,
+                          height: 34,
+                          borderRadius: 10,
+                          background: '#202020',
+                          color: 'white',
+                          fontSize: 14,
+                        }}
+                        onClick={() => {
+                          fileRef.current?.click()
                         }}
                       >
                         컴퓨터에서 가져오기
-                      </BannerButton>
-                    </>
+                      </Button>
+                    </ImageDefault>
                   )}
-                </FlexBox>
-                {postImageURL && (
-                  <ContentImage src={postImageURL} alt="banner" />
-                )}
-              </AddImage>
-            )
-          }
-        })}
-      </ContentWrapper>
+                </div>
+              )
+            }
+          })}
+        </TextBox>
+      </div>
     </>
   )
 }
