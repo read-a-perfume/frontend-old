@@ -14,7 +14,9 @@ import {
 import CustomIcons from 'src/assets/customIcons'
 import LoginModal from '@components/LoginModal/LoginModal'
 
-const Header = () => {
+const Header = ({ editorPostCompleted} : {
+  editorPostCompleted?: boolean;
+}) => {
   const isLoggedIn = true
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>('')
@@ -33,7 +35,7 @@ const Header = () => {
       return (
         <FlexBox gap="16px">
           <PostButtons btntype="cancel">취소</PostButtons>
-          <PostButtons btntype="upload">매거진 업로드</PostButtons>
+          <PostButtons btntype="upload" disabled={!editorPostCompleted}>매거진 업로드</PostButtons>
         </FlexBox>
       )
     } else {
