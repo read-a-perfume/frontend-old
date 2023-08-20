@@ -39,7 +39,7 @@ const Wrapper = styled.div({
 
 const data = ['All', '내가 작성한 피드', '좋아요', '??']
 
-const feedData = new Array(50).fill(0).map((_, i) => i + 1)
+const feedData = new Array(8).fill(0).map((_, i) => i + 1)
 
 const MyPage = () => {
   const [ordered, setOrdered] = useState<string>('All')
@@ -334,7 +334,7 @@ const MyPage = () => {
           justifyContent="center"
           alignItems="center"
         >
-          {Math.ceil(feedData.length / 6) < 7 ? (
+          {Math.ceil(feedData.length / 6) < 11 ? (
             <FlexBox style={{gap: 16, marginBottom: 78}}>
               {new Array(Math.ceil(feedData.length / 6))
                 .fill(0)
