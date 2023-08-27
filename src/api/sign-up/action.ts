@@ -33,6 +33,7 @@ export const SignUp = async (props: SignUpProps) => {
       email,
       marketingConsent,
       promotionConsent,
+      name: username,
     })
 
     console.log(data)

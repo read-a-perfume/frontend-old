@@ -19,7 +19,7 @@ import {
 import {theme} from '@theme/theme'
 import {useEffect, useState} from 'react'
 import {SubmitHandler, useForm} from 'react-hook-form'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {
   BackButton,
   ConsentBox,
@@ -86,6 +86,8 @@ export default function SignUpForm(props: Props) {
     getValues,
   } = useForm<SignUpInputs>()
   const onTestSubmit: SubmitHandler<SignUpInputs> = data => console.log(data)
+
+  const navigate = useNavigate()
 
   // const {type} = props
   // const [userId, setUserId] = useState<string>('')
@@ -183,7 +185,8 @@ export default function SignUpForm(props: Props) {
 
   const signUpMount = useMutation(SignUp, {
     onSuccess: () => {
-      alert('성공')
+      alert('가입 완료')
+      navigate('/')
     },
   })
 
@@ -211,14 +214,6 @@ export default function SignUpForm(props: Props) {
       promotionConsent,
     })
   }
-  // const onClickSubmitBtn = async () =>
-  //   signUpQuery.mutate({
-  //     id: signUpInputs.id,
-  //     password: signUpInputs.password,
-  //     email: signUpInputs.email,
-  //     marketingConsent: optionalConsent.marketingConsent,
-  //     promotionConsent: optionalConsent.promotionConsent,
-  //   })
 
   const closeEmailSendAlert = () => {
     setEmailSendAlertOpen(false)
