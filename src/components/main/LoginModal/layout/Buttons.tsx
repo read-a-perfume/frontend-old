@@ -9,12 +9,24 @@ import {
   GoogleIcon,
   LoginButton,
 } from './LoginModal.style'
-import {googleLogin} from '@api/login/actions'
+import {accountLogin, googleLogin} from '@api/login/actions'
+import {useMutation} from '@tanstack/react-query'
 
 const Buttons = ({tabClick, errors, inputs, condition}: ButtonsProps) => {
   const navigate = useNavigate()
 
+  const accountLoginMutation = useMutation({
+    mutationFn: accountLogin,
+    onSuccess: data => {
+      console.log(data)
+    },
+  })
+
   const submitHandler = () => {
+    accountLoginMutation.mutate({
+      username: inputs.id,
+      password: inputs.password,
+    })
     console.log({
       ...inputs,
       condition: condition,
