@@ -1,5 +1,5 @@
-import { LinksProps } from "@components/main/LoginModal/layout/LoginModal.interface"
-import { ModalSpan } from "@components/main/LoginModal/layout/LoginModal.style"
+import { LinksProps } from "@components/LoginModal/layout/LoginModal.interface"
+import { ModalSpan } from "@components/LoginModal/layout/LoginModal.style"
 import FlexBox from "./FlexBox"
 
 const Links = ({linkLabel, label, onClick, style}: LinksProps) => {

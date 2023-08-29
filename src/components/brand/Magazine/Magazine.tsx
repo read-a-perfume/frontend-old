@@ -23,7 +23,7 @@ const Magazine = ({
     image: string
     title: string
     content: string
-    hastag: string[]
+    hashtag: string[][]
   }
 }) => {
   const [optionsOpen, setOptionsOpen] = useState<boolean>(false)
@@ -64,7 +64,7 @@ const Magazine = ({
         >
           <CardTitle>{data.title}</CardTitle>
           <CardSpan>{data.content}</CardSpan>
-          <HashTags>{'#' + data.hastag.join(' #')}</HashTags>
+          <HashTags>{'#' + data.hashtag.join(' #')}</HashTags>
         </Link>
       </MagazineInfo>
     </Card>

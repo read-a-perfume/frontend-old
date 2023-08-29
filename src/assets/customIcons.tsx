@@ -21,7 +21,7 @@ const CommentIcon = createSvgIcon(
   'CommentIcon',
 )
 
-const Comment2Icon = createSvgIcon(
+const CommentIcon2 = createSvgIcon(
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="20"
@@ -34,7 +34,7 @@ const Comment2Icon = createSvgIcon(
       fill="#DBDBDB"
     />
   </svg>,
-  'Comment2Icon'
+  'CommentIcon2',
 )
 
 const SearchIcon = createSvgIcon(
@@ -215,7 +215,7 @@ const AfterIcon = createSvgIcon(
   >
     <path
       d="M10.0194 6L8.60938 7.41L13.1894 12L8.60938 16.59L10.0194 18L16.0194 12L10.0194 6Z"
-      fill="#DBDBDB"
+      fill="#B4B4B4"
     />
   </svg>,
   'AfterIcon',
@@ -420,7 +420,7 @@ const Dot = createSvgIcon(
 
 const CustomIcons = {
   CommentIcon,
-  Comment2Icon,
+  CommentIcon2,
   SearchIcon,
   DefaultCheckIcon,
   YellowCheckIcon,

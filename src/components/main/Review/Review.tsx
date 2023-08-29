@@ -1,22 +1,45 @@
 import FlexBox from '@components/layout/FlexBox'
 import {MenuItem} from '@mui/material'
-import { useState } from 'react'
+import {SectionSubTitle, SectionTitle} from '@pages/main/Main.style'
+import React, { useState } from 'react'
 import CustomIcons from 'src/assets/customIcons'
-import {DetailOrder, FilterButton, SectionSubTitle, SectionTitle} from './Review.style'
-import OrderBox from '@components/layout/OrderBox'
-import ReviewCard from './layout/ReviewCard'
-
-const ORDERBY = ['All', '향수 노트별', '브랜드별', '분위기별']
+import ReviewCard from '../ReviewCard/ReviewCard'
+import {DetailOrder, FilterButton, OrderButton} from './styles'
 
 const Review = () => {
-  const [ordered, setOrdered] = useState<string>('all')
+  const [filtered, setFiltered] = useState<string>('all')
 
   return (
     <div>
       <SectionTitle>향수 리뷰</SectionTitle>
       <SectionSubTitle>다양한 향수 리뷰를 피드에서 살펴보세요</SectionSubTitle>
       <FlexBox justifyContent="space-between">
-        <OrderBox data={ORDERBY} ordered={ordered} setOrdered={setOrdered} />
+        <FlexBox style={{gap: 12}}>
+          <OrderButton
+            clicked={filtered === 'all'}
+            onClick={() => setFiltered('all')}
+          >
+            ALL
+          </OrderButton>
+          <OrderButton
+            clicked={filtered === 'note'}
+            onClick={() => setFiltered('note')}
+          >
+            향수 노트별
+          </OrderButton>
+          <OrderButton
+            clicked={filtered === 'brand'}
+            onClick={() => setFiltered('brand')}
+          >
+            브랜드별
+          </OrderButton>
+          <OrderButton
+            clicked={filtered === 'mood'}
+            onClick={() => setFiltered('mood')}
+          >
+            분위기별
+          </OrderButton>
+        </FlexBox>
         <FlexBox style={{gap: 20}}>
           <DetailOrder
             defaultValue="help"

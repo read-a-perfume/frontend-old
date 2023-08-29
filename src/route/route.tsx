@@ -5,6 +5,8 @@ import Brand from '@pages/brand/Brand'
 import MagazineContent from '@components/brand/Magazine/MagazineContent'
 import BrandSettings from '@components/brand/BrandSettings'
 import PostMagazine from '@components/brand/Magazine/PostMagazine'
+import MyPage from '@pages/myPage/MyPage'
+import AccountLayout from '@components/mypage/AccountSettings/AccountLayout'
 
 type Route = {
   name: string

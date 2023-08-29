@@ -1,13 +1,13 @@
 import {
-  FormControl,
+  // FormControl,
   // FormHelperText,
   Grid,
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
+  // IconButton,
+  // InputAdornment,
+  // OutlinedInput,
   Typography,
 } from '@mui/material'
-import {theme} from '@theme/theme'
+// import {theme} from '@theme/theme'
 import React from 'react'
 import {FormItem} from './FormItem'
 
@@ -29,16 +29,16 @@ type Props = {
 export default function FormInput(props: Props) {
   const {
     label,
-    type,
-    name,
-    value,
-    placeholder,
-    showPassword,
+    // type,
+    // name,
+    // value,
+    // placeholder,
+    // showPassword,
     children,
     text,
-    onChange,
-    onMouseDownPassword,
-    onToggleShowPassword,
+    // onChange,
+    // onMouseDownPassword,
+    // onToggleShowPassword,
   } = props
 
   return (
