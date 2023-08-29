@@ -5,9 +5,10 @@ import Brand from '@pages/brand/Brand'
 import MagazineContent from '@components/brand/Magazine/MagazineContent'
 import BrandSettings from '@components/brand/BrandSettings'
 import PostMagazine from '@components/brand/Magazine/PostMagazine'
+import MyPage from '@pages/myPage/MyPage'
+import AccountLayout from '@components/mypage/AccountSettings/AccountLayout'
 
 type Route = {
-  type: string
   name: string
   key: string
   route: string
@@ -16,21 +17,18 @@ type Route = {
 
 const routes: Route[] = [
   {
-    type: 'index',
     name: 'main',
     key: 'main-key',
     route: '/',
     component: <Main />,
   },
   {
-    type: 'signUp',
     name: 'signUp',
     key: 'signUp-key',
     route: '/sign-up',
     component: <SignUp />,
   },
   {
-    type: 'test',
     name: 'test',
     key: 'test-key',
     route: '/test',
@@ -49,33 +47,42 @@ const routes: Route[] = [
   //     },
   //   ],
   // },
-    type: 'brand',
+  {
     name: 'brand',
     key: 'brand-key',
     route: '/brand/:id',
     component: <Brand />,
   },
   {
-    type: 'brand',
     name: 'brand-settings',
     key: 'brand-settings-key',
     route: '/brand/:id/settings',
     component: <BrandSettings />,
   },
   {
-    type: 'magazine',
     name: 'magazine-detail',
     key: 'magazine-detail-key',
     route: '/brand/:id/magazine/:id',
     component: <MagazineContent />,
   },
   {
-    type: 'magazine',
     name: 'post-magazine',
     key: 'post-magazine-key',
     route: '/brand/:id/magazine/post',
     component: <PostMagazine />,
   },
+  {
+    name: 'mypage',
+    key: 'mypage-key',
+    route: '/mypage',
+    component: <MyPage />,
+  },
+  {
+    name: 'settings',
+    key: 'settings-key',
+    route: '/:id/settings',
+    component: <AccountLayout />,
+  }
 ]
 
 export default routes

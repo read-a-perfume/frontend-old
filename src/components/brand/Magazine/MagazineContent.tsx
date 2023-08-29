@@ -6,7 +6,7 @@ import FlexBox from '@components/layout/FlexBox'
 import { useParams } from 'react-router-dom'
 import CustomIcons from 'src/assets/customIcons'
 import { Banner } from '@pages/brand/Brand.style'
-import { magazineData } from './magazineData'
+import { magazineData } from '@components/main/constants'
 
 const BannerSpan = styled(Typography)({
   fontSize: theme.typography.body2.fontSize,

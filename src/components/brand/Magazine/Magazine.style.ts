@@ -125,9 +125,8 @@ export const AddImage = styled.div({
   borderRadius: 16,
   background: '#F1F1F5',
   border: '1px solid #EDEDED',
-  overflow: 'hidden',
-  marginTop: 48,
-  marginBottom: 48
+  display: 'flex',
+  flexDirection: 'column',
 })
 
 export const ContentImage = styled.img({
