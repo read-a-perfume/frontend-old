@@ -1,6 +1,5 @@
 import {FormControl, IconButton, InputAdornment} from '@mui/material'
 import FlexBox from './FlexBox'
-import LoginModal from '@components/main/LoginModal/LoginModal'
 import {useState} from 'react'
 import {useLocation, useNavigate} from 'react-router-dom'
 import {
@@ -13,8 +12,8 @@ import {
   PostButtons,
 } from './Header.styles'
 import CustomIcons from 'src/assets/customIcons'
-import LoginModal from '@components/LoginModal/LoginModal'
 import NotificationModal from '@components/Notification/NotificationModal'
+import LoginModal from '@components/main/LoginModal/LoginModal'
 
 const Header = ({editorPostCompleted}: {editorPostCompleted?: boolean}) => {
   const navigate = useNavigate()

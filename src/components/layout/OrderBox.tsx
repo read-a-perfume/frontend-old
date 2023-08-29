@@ -1,6 +1,7 @@
 import React from 'react'
 import FlexBox from './FlexBox'
-import {OrderButton} from '@components/main/Review/styles'
+import { OrderButton } from '@components/main/Review/Review.style'
+// import {OrderButton} from '@components/min/Review/styles'
 
 const OrderBox = ({
   data,
