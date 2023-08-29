@@ -19,11 +19,6 @@ import {
   SubTitleInput,
   TitleInput,
 } from './Magazine.style'
-import FlexBox from '@components/layout/FlexBox'
-import CustomIcons from 'src/assets/customIcons'
-import UploadIcon from 'src/assets/UploadIcon'
-import {Button, Typography} from '@mui/material'
-import CloseIcon from 'src/assets/CloseIcon'
 
 type DataBox = {
   id: number
@@ -188,60 +183,11 @@ const PostMagazine = () => {
                     ref={postImageRef}
                     onChange={event => changeImageHandler(event, 'content')}
                   />
-<<<<<<< HEAD
                   {!postImageURL && (
                     <>
                       <BannerContent
                         imageurl={postImageURL}
                         style={{marginBottom: 80}}
-=======
-                </div>
-              )
-            } else if (el.type === 3) {
-              return (
-                <div key={index}>
-                  {el.image ? (
-                    <ImageDefault>
-                      <FlexBox
-                        style={{
-                          position: 'absolute',
-                          width: 1192,
-                          marginTop: 32,
-                          paddingRight: 32,
-                          cursor: 'pointer'
-                        }}
-                        justifyContent="flex-end"
-                        onClick={() => {
-                          const tmp = inputItems.filter((_, i) => i !== index)
-                          setInputItems(tmp)
-                        }}
-                      >
-                        <CloseIcon />
-                      </FlexBox>
-                      <img
-                        src={el.image}
-                        alt="post"
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                    </ImageDefault>
-                  ) : (
-                    <ImageDefault
-                      style={{justifyContent: 'center', alignItems: 'center'}}
-                    >
-                      <UploadIcon />
-                      <Typography
-                        style={{
-                          fontSize: 16,
-                          fontWeight: '600',
-                          color: '#191919',
-                          marginTop: 16,
-                          marginBottom: 16,
-                        }}
->>>>>>> c01173c (feat: move style from styles to component)
                       >
                         이미지를 추가해보세요.
                       </BannerContent>
