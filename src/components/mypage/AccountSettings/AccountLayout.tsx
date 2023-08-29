@@ -23,12 +23,12 @@ export const Item = styled(Typography)(({clicked}: {clicked: boolean}) => ({
 }))
 
 export interface InputProps {
-  introduction: string;
-  type: string[];
-  birth: string;
-  gender: string;
-  email: string;
-  password: string;
+  introduction: string
+  type: string[]
+  birth: string
+  gender: string
+  email: string
+  password: string
 }
 
 const AccountLayout = () => {
@@ -42,8 +42,16 @@ const AccountLayout = () => {
     birth: '',
     gender: 'male',
     email: '',
-    password: ''
+    password: '',
   })
+
+  const clickHandler = (type: string) => {
+    setNavClicked(type)
+    secondBlock.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <>
@@ -77,37 +85,19 @@ const AccountLayout = () => {
           <SettingsTitle>설정 및 관리</SettingsTitle>
           <FlexBox gap="16px" direction="column">
             <Item
-              onClick={() => {
-                setNavClicked('public')
-                firstBlock.current?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }}
+              onClick={() => clickHandler('public')}
               clicked={navClicked === 'public'}
             >
               공개 프로필
             </Item>
             <Item
-              onClick={() => {
-                setNavClicked('private')
-                secondBlock.current?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }}
+              onClick={() => clickHandler('private')}
               clicked={navClicked === 'private'}
             >
               개인정보
             </Item>
             <Item
-              onClick={() => {
-                setNavClicked('account')
-                thirdBlock.current?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }}
+              onClick={() => clickHandler('account')}
               clicked={navClicked === 'account'}
             >
               계정관리
