@@ -1,7 +1,7 @@
 import {FormControl, IconButton, InputAdornment} from '@mui/material'
 import FlexBox from './FlexBox'
 import {useState} from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {
   HeaderLayout,
   HeaderNavigation,
@@ -13,12 +13,13 @@ import {
 } from './Header.styles'
 import CustomIcons from 'src/assets/customIcons'
 import LoginModal from '@components/LoginModal/LoginModal'
+import NotificationModal from '@components/Notification/NotificationModal'
 
-const Header = ({ editorPostCompleted} : {
-  editorPostCompleted?: boolean;
-}) => {
+const Header = ({editorPostCompleted}: {editorPostCompleted?: boolean}) => {
+  const navigate = useNavigate()
   const isLoggedIn = true
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [popOpen, setPopOpen] = useState<boolean>(false)
   const [keyword, setKeyword] = useState<string>('')
   const location = useLocation()
 
@@ -35,7 +36,9 @@ const Header = ({ editorPostCompleted} : {
       return (
         <FlexBox gap="16px">
           <PostButtons btntype="cancel">취소</PostButtons>
-          <PostButtons btntype="upload" disabled={!editorPostCompleted}>매거진 업로드</PostButtons>
+          <PostButtons btntype="upload" disabled={!editorPostCompleted}>
+            매거진 업로드
+          </PostButtons>
         </FlexBox>
       )
     } else {
@@ -60,19 +63,18 @@ const Header = ({ editorPostCompleted} : {
 
   return (
     <>
+      <NotificationModal isOpen={popOpen} setIsOpen={setPopOpen} />
       <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <HeaderLayout style={{display: 'flex', flexDirection: 'column'}}>
         <HeaderNavigation height="58px">
           <NavTop
-            onClick={() =>
-              !isLoggedIn ? setIsOpen(true) : console.log('알림 링크')
-            }
+            onClick={() => (!isLoggedIn ? setIsOpen(true) : setPopOpen(true))}
           >
             알림
           </NavTop>
           <NavTop
             onClick={() =>
-              !isLoggedIn ? setIsOpen(true) : console.log('마이페이지 링크')
+              !isLoggedIn ? setIsOpen(true) : navigate('/mypage')
             }
           >
             마이페이지
@@ -80,7 +82,7 @@ const Header = ({ editorPostCompleted} : {
         </HeaderNavigation>
         <HeaderNavigation height="94px">
           <FlexBox>
-            <Logo src={'/images/logo-text.png'} alt="logo" />
+            <Logo src={'/images/logo-text.png'} alt="logo" onClick={() => navigate('/')} />
             <FlexBox
               alignItems="center"
               gap="52px"

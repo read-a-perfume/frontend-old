@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import {Button, Typography} from '@mui/material'
 import {AddBannerSpan, AddImageButton} from '@pages/brand/Brand.style'
+import { theme } from '@theme/theme'
+import CustomIcons from 'src/assets/customIcons'
 
 // PostMagazine
 
@@ -49,6 +51,46 @@ export const AddButton = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  '&:nth-of-type(3)': {
+    borderRight: '1px solid #DBDBDB',
+  },
+  '&:hover': {
+    background: 'transparent',
+  },
+})
+
+export const AttributeText = styled(Typography)({
+  color: '#191919',
+  fontSize: theme.typography.body3.fontSize,
+  fontWeight: '500',
+  marginLeft: 2,
+})
+
+export const AddImage = styled.div({
+  width: 1192,
+  height: 586,
+  borderRadius: 16,
+  background: '#F1F1F5',
+  border: '1px solid #EDEDED',
+  display: 'flex',
+  flexDirection: 'column',
+})
+
+export const ContentImage = styled.img({
+  width: 1192,
+  height: 586,
+  objectFit: 'fill',
+  position: 'absolute',
+  zIndex: 1,
+  imageRendering: '-webkit-optimize-contrast',
+  backfaceVisibility: 'hidden',
+  borderRadius: 16,
+})
+
+export const OptionsIcon = styled(CustomIcons.HamburgerIcon)({
+  zIndex: 2,
+  position: 'absolute',
+  marginTop: 32,
   cursor: 'pointer',
 })
 
