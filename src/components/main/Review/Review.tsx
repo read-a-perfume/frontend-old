@@ -1,11 +1,10 @@
 import FlexBox from '@components/layout/FlexBox'
 import {MenuItem} from '@mui/material'
-import {SectionSubTitle, SectionTitle} from '@pages/main/Main.style'
 import { useState } from 'react'
 import CustomIcons from 'src/assets/customIcons'
-import ReviewCard from '../ReviewCard/ReviewCard'
-import {DetailOrder, FilterButton} from './styles'
+import {DetailOrder, FilterButton, SectionSubTitle, SectionTitle} from './Review.style'
 import OrderBox from '@components/layout/OrderBox'
+import ReviewCard from './layout/ReviewCard'
 
 const ORDERBY = ['All', '향수 노트별', '브랜드별', '분위기별']
 
