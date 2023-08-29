@@ -51,6 +51,7 @@ export const AddButton = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
   '&:nth-of-type(3)': {
     borderRight: '1px solid #DBDBDB',
   },
