@@ -1,21 +1,11 @@
 import Header from '@components/layout/Header'
 import styled from '@emotion/styled'
 import {Typography} from '@mui/material'
-import {theme} from '@theme/theme'
 import FlexBox from '@components/layout/FlexBox'
 import {useParams} from 'react-router-dom'
 import CustomIcons from 'src/assets/customIcons'
 import {magazineData} from '@components/main/constants'
 import {LinkButton, PostFooter} from './Magazine.style'
-
-const BannerSpan = styled(Typography)({
-  fontSize: theme.typography.body2.fontSize,
-  fontWeight: 600,
-  color: 'white',
-  marginBottom: '80px',
-  zIndex: 1,
-  position: 'absolute',
-})
 
 const BannerImage = styled.img({
   width: '100%',

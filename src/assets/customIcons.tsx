@@ -199,7 +199,23 @@ const BeforeIcon = createSvgIcon(
   >
     <path
       d="M13.9806 6L15.3906 7.41L10.8106 12L15.3906 16.59L13.9806 18L7.98062 12L13.9806 6Z"
-      fill="#DBDBDB"
+      fill="#B4B4B4"
+    />
+  </svg>,
+  'BeforeIcon',
+)
+
+const BeforeIconBlack = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M13.9806 6L15.3906 7.41L10.8106 12L15.3906 16.59L13.9806 18L7.98062 12L13.9806 6Z"
+      fill="black"
     />
   </svg>,
   'BeforeIcon',
@@ -216,6 +232,22 @@ const AfterIcon = createSvgIcon(
     <path
       d="M10.0194 6L8.60938 7.41L13.1894 12L8.60938 16.59L10.0194 18L16.0194 12L10.0194 6Z"
       fill="#B4B4B4"
+    />
+  </svg>,
+  'AfterIcon',
+)
+
+const AfterIconBlack = createSvgIcon(
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M10.0194 6L8.60938 7.41L13.1894 12L8.60938 16.59L10.0194 18L16.0194 12L10.0194 6Z"
+      fill="black"
     />
   </svg>,
   'AfterIcon',
@@ -441,6 +473,8 @@ const CustomIcons = {
   ShowPassword,
   HidePassword,
   Dot,
+  BeforeIconBlack,
+  AfterIconBlack
 }
 
 export default CustomIcons
