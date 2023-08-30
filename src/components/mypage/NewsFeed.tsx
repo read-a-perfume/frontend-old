@@ -76,7 +76,7 @@ const NewsFeed = () => {
         <HeartIcon size="24" />
         <BottomTypo>좋아요 172개</BottomTypo>
         <div style={{ marginBottom: -13, marginLeft: 22}}>
-          <CustomIcons.Comment2Icon />
+          <CustomIcons.CommentIcon2 />
         </div>
         <BottomTypo>댓글 40개</BottomTypo>
       </FlexBox>

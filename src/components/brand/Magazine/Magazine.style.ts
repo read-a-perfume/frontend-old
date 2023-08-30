@@ -1,67 +1,10 @@
 import styled from '@emotion/styled'
-import {Button, TextareaAutosize, Typography} from '@mui/material'
+import {Button, Typography} from '@mui/material'
 import {AddBannerSpan, AddImageButton} from '@pages/brand/Brand.style'
-import {theme} from '@theme/theme'
+import { theme } from '@theme/theme'
 import CustomIcons from 'src/assets/customIcons'
 
 // PostMagazine
-
-export const ContentWrapper = styled.section({
-  width: '100%',
-  minHeight: '650px',
-  paddingLeft: 160,
-  paddingRight: 160,
-  paddingTop: 32,
-})
-
-export const TitleInput = styled.textarea({
-  border: 'transparent',
-  height: 110,
-  width: '100%',
-  fontSize: 36,
-  fontWeight: '600',
-  color: '#191919',
-  fontFamily: 'AritaBuri !important',
-  display: 'flex',
-  justifyContent: 'left',
-  alignItems: 'flex-start',
-  resize: 'none',
-  '&:placeholder': {
-    color: '#A9A9A9',
-  },
-})
-
-export const SubTitleInput = styled.input({
-  border: 'transparent',
-  width: '100%',
-  fontSize: theme.typography.h2.fontSize,
-  fontWeight: '600',
-  color: '#191919',
-  fontFamily: 'AritaBuri !important',
-  marginBottom: 25,
-  marginTop: 25,
-  '&:placeholder': {
-    color: '#A9A9A9',
-  },
-})
-
-export const ContentInput = styled(TextareaAutosize)({
-  border: 'transparent',
-  width: '100%',
-  minHeight: 36,
-  fontSize: theme.typography.h4.fontSize,
-  fontWeight: '500',
-  color: '#191919',
-  display: 'flex',
-  justifyContent: 'left',
-  alignItems: 'flex-start',
-  marginBottom: 48,
-  lineBreak: 'auto',
-  resize: 'none',
-  '&:placeholder': {
-    color: '#A9A9A9',
-  },
-})
 
 export const HeaderImage = styled.header({
   width: '100%',
@@ -85,25 +28,30 @@ export const BannerButton = styled(AddImageButton)(
   }),
 )
 
-export const Attributes = styled.div({
-  width: '100%',
-  height: 48,
-  paddingLeft: 160,
-  display: 'flex',
-  background: '#F1F1F5',
+export const EditorTitle = styled(Typography)({
+  fontSize: 18,
+  fontWeight: '500',
+  color: '#191919',
+  marginRight: 40,
 })
 
-export const AttributeButton = styled(Button)({
-  width: 113,
-  height: 48,
-  borderTop: 'none',
-  borderBottom: 'none',
-  borderRight: 'none',
+export const TitleInput = styled.input({
+  height: 55,
+  border: 'none',
+  borderBottom: '1px solid #DBDBDB',
+  fontSize: 18,
+  fontWeight: '500',
+})
+
+export const AddButton = styled.div({
+  width: 112,
+  height: '100%',
   borderLeft: '1px solid #DBDBDB',
-  background: 'none',
+  borderRight: '1px solid #DBDBDB',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  cursor: 'pointer',
   '&:nth-of-type(3)': {
     borderRight: '1px solid #DBDBDB',
   },
@@ -145,4 +93,56 @@ export const OptionsIcon = styled(CustomIcons.HamburgerIcon)({
   position: 'absolute',
   marginTop: 32,
   cursor: 'pointer',
+})
+
+export const AddButtonText = styled(Typography)({
+  fontSize: 14,
+  fontWeight: 500,
+  color: '#191919',
+  marginLeft: 6,
+})
+
+export const TextBox = styled.div({
+  marginLeft: 160,
+  marginRight: 160,
+  marginTop: 34,
+})
+
+export const ImageDefault = styled.div({
+  width: 1192,
+  marginTop: 34,
+  marginBottom: 34,
+  height: 586,
+  background: '#F1F1F5',
+  border: '1px solid #EDEDED',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+export const PostFooter = styled.div({
+  width: '100%',
+  position: 'fixed',
+  bottom: 0,
+  height: 112,
+  borderTop: '1px solid black',
+  padding: '0px 160px',
+  background: 'white',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+})
+
+export const LinkButton = styled(Button)({
+  width: 73,
+  height: 38,
+  borderRadius: 10,
+  border : '1px solid #DBDBDB',
+  background: 'white',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: 14,
+  color: '#191919'
 })

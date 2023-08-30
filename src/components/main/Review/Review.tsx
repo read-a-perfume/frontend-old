@@ -4,7 +4,7 @@ import {SectionSubTitle, SectionTitle} from '@pages/main/Main.style'
 import React, { useState } from 'react'
 import CustomIcons from 'src/assets/customIcons'
 import ReviewCard from '../ReviewCard/ReviewCard'
-import {DetailOrder, FilterButton, OrderButton} from './styles'
+import {DetailOrder, FilterButton, OrderButton} from './Review.style'
 
 const Review = () => {
   const [filtered, setFiltered] = useState<string>('all')

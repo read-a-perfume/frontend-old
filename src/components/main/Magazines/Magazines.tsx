@@ -1,6 +1,5 @@
 // import {useState} from 'react'
 import CarouselIcon from 'src/assets/CarouselIcon'
-import {Typography} from '@mui/material'
 import {magazineData} from '@components/main/constants'
 import FlexBox from '@components/layout/FlexBox'
 import {

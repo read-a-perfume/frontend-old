@@ -1,5 +1,5 @@
+import { ModalProps } from '@components/LoginModal/layout/LoginModal.interface'
 import FlexBox from '@components/layout/FlexBox'
-import { ModalProps } from '@components/main/LoginModal/layout/LoginModal.interface'
 import styled from '@emotion/styled'
 import {Box, Modal, Typography} from '@mui/material'
 import CloseIcon from 'src/assets/CloseIcon'
